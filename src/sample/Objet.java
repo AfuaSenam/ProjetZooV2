@@ -110,7 +110,7 @@ public class Objet {
     public Rectangle2D getBoundary()
     {
         return new Rectangle2D(positionX,positionY,width,height);
-    }
+    }//fonction permettant de savoir si il y a un objet deja à cette position
 
     public boolean intersects(Objet s)
     {

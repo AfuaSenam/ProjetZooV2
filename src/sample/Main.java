@@ -55,6 +55,7 @@ public class Main extends Application {
         Objet chien = new Objet();
         chien.setImage("asset/chien.png");
         chien.setPosition(200, 0);
+        chien.setDestination(150,150);//x colonne, y ligne
         chien.setVitesse(50);
 
         ArrayList<Objet> obstacle = new ArrayList<Objet>();
@@ -80,7 +81,7 @@ public class Main extends Application {
             public void handle(long currentNanoTime)
             {
                 // calculate time since last update.
-                double elapsedTime = (currentNanoTime - startNanoTime) / 1000000000.0;
+                double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000.0;
                // startNanoTime = currentNanoTime;
 
                 // game logic
@@ -89,18 +90,18 @@ public class Main extends Application {
                 resultX=chien.getPositionX()-chien.getDestinationX();
                 resultY=chien.getPositionY()-chien.getDestinationY();
 
-                if (chien.getPositionX()!=chien.getDestinationX() && chien.getPositionY()!=chien.getDestinationY()) {
 
-                    if(resultX<0 && resultY<0){
-                        chien.addVelocity(0,chien.getVitesse());//down
-                    }else if(resultX>0 && resultY>0){
-                        chien.addVelocity(0,-chien.getVitesse());//up
-                    }else if(resultX>0 && resultY<0){//left
-                        chien.addVelocity(-chien.getVitesse(),0);
-                    }else if(resultX<0 && resultY>0){//right
-                        chien.addVelocity(chien.getVitesse(),0);
-                    }
+
+                if(resultX<0 && resultY<0){
+                    chien.addVelocity(0,chien.getVitesse());//down
+                }else if(resultX>0 && resultY>0){
+                    chien.addVelocity(0,-chien.getVitesse());//up
+                }else if(resultX>0 && resultY<0){//left
+                    chien.addVelocity(-chien.getVitesse(),0);
+                }else if(resultX<0 && resultY>0){//right
+                    chien.addVelocity(chien.getVitesse(),0);
                 }
+
                /* if (input.contains("LEFT"))
                     chien.addVelocity(-chien.getVitesse(),0);
                 if (input.contains("RIGHT"))
