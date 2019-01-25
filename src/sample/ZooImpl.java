@@ -1,5 +1,6 @@
 package sample;
 
+import javafx.animation.AnimationTimer;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 public class ZooImpl implements Zoo {
 
     public String nomZoo = new String();
-    public ArrayList<Objet> listAnimaux = new ArrayList<Objet>();
-    public ArrayList<Objet> listObstacle = new ArrayList<Objet>();
-    public Animal animal;
+    public ArrayList<AnimalImpl> listAnimaux = new ArrayList<AnimalImpl>();
+    public ArrayList<ObstacleImpl> listObstacle = new ArrayList<ObstacleImpl>();
+    public AnimalImpl animal1;
     @Override
     public String getNomZoo() throws RemoteException {
         return nomZoo;
@@ -28,17 +29,17 @@ public class ZooImpl implements Zoo {
     }
 
     @Override
-    public ArrayList<Objet> getListAnimaux() throws RemoteException {
+    public ArrayList<AnimalImpl> getListAnimaux() throws RemoteException {
         return listAnimaux;
     }
 
     @Override
-    public void setListAnimaux(ArrayList<Objet> listAnimaux) throws RemoteException {
+    public void setListAnimaux(ArrayList<AnimalImpl> listAnimaux) throws RemoteException {
         this.listAnimaux = listAnimaux;
     }
 
     @Override
-    public ArrayList<Objet> getListObstacle() throws RemoteException {
+    public ArrayList<ObstacleImpl> getListObstacle() throws RemoteException {
         return listObstacle;
     }
 
@@ -64,11 +65,11 @@ public class ZooImpl implements Zoo {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
         //Ajout animal
-        animal=new Animal();
+        animal1=new AnimalImpl("Chien",50,"asset/chien.jpg","asset/mine.png",false);
 
         //Fonction obstacle
 
-        //setListObstacle(Obstacle.genererObstacles());
+        setListObstacle(Obstacle.ajoutObstacle());
 
         //------------------------------Animation timer-------------------//
         final long startNanoTime = System.nanoTime();
@@ -80,12 +81,20 @@ public class ZooImpl implements Zoo {
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000.0;
                 // startNanoTime = currentNanoTime;
 
-                boolean rs=(chien.deplacement(finalObstacle));
+                try {
+                    boolean rs=(animal1.deplacement(getListObstacle()));
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
 
-                animal.update(elapsedTime);//pour le temps
+                animal1.update(elapsedTime);//pour le temps
                 gc.clearRect(0, 0, 512,512);
-                animal.render( gc );
-                animal.renderObs(gc,getListObstacle());
+                animal1.render( gc );
+                try {
+                    Obstacle.renderObs(gc,getListObstacle());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
             }
         }.start();
 
@@ -94,12 +103,12 @@ public class ZooImpl implements Zoo {
     }
 
     @Override
-    public void setListObstacle(ArrayList<Objet> listObstacle) throws RemoteException {
+    public void setListObstacle(ArrayList<ObstacleImpl> listObstacle) throws RemoteException {
         this.listObstacle = listObstacle;
     }
 
     @Override
-    public void ajouterAninmal(Objet ani) throws RemoteException {
+    public void ajouterAninmal(AnimalImpl ani) throws RemoteException {
         this.listAnimaux.add(ani);
     }
 }

@@ -25,15 +25,15 @@ public class Main extends Application {
     double resultY;
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo");
         //primaryStage.setScene(new Scene(root, 300, 275));
 
 
         Group group = new Group();
-        Scene theScene = new Scene( group );
-        primaryStage.setScene( theScene );
+        Scene theScene = new Scene(group);
+        primaryStage.setScene(theScene);
 
         final double WIDTH = 30; // image width
         final double HEIGHT = 30; // image height
@@ -41,8 +41,8 @@ public class Main extends Application {
         final double CANVAS_WIDTH = 512;
         final double CANVAS_HEIGHT = 512;
 
-        Canvas canvas = new Canvas( CANVAS_WIDTH, CANVAS_HEIGHT ); // Create new canvas
-        group.getChildren().add( canvas );
+        Canvas canvas = new Canvas(CANVAS_WIDTH, CANVAS_HEIGHT); // Create new canvas
+        group.getChildren().add(canvas);
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
@@ -56,32 +56,30 @@ public class Main extends Application {
         Objet chien = new Objet();
         chien.setImage("asset/chien.png");
         chien.setPosition(200, 0);
-        chien.setDestination(150,150);//x colonne, y ligne
+        chien.setDestination(150, 150);//x colonne, y ligne
         chien.setVitesse(50);
 
         ArrayList<Objet> obstacle = new ArrayList<Objet>();
 
-        obstacle=chien.ajoutObstacle();
+        obstacle = chien.ajoutObstacle();
 
         /*LongValue lastNanoTime = new LongValue( System.nanoTime() );
 
         IntValue score = new IntValue(0);*/
         ArrayList<String> input = new ArrayList<String>();
 
-       final long startNanoTime = System.nanoTime();
+        final long startNanoTime = System.nanoTime();
         ArrayList<Objet> finalObstacle = obstacle;
-       // ArrayList<Objet> finalObstacle1 = obstacle;
-        new AnimationTimer()
-        {
-            public void handle(long currentNanoTime)
-            {
+        // ArrayList<Objet> finalObstacle1 = obstacle;
+        new AnimationTimer() {
+            public void handle(long currentNanoTime) {
                 // calculate time since last update.
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000.0;
-               // startNanoTime = currentNanoTime;
+                // startNanoTime = currentNanoTime;
 
                 // game logic
 
-                boolean rs=(chien.deplacement(finalObstacle));
+                boolean rs = (chien.deplacement(finalObstacle));
 
 
 
@@ -99,13 +97,12 @@ public class Main extends Application {
                 // collision detection
 
 
-
                 // render
 
-                gc.clearRect(0, 0, 512,512);
-                chien.render( gc );
+                gc.clearRect(0, 0, 512, 512);
+                chien.render(gc);
 
-                chien.renderObs(gc,finalObstacle);
+                chien.renderObs(gc, finalObstacle);
 
                 /*String pointsText = "Cash: $" + (100 * score.value);
                 gc.fillText( pointsText, 360, 36 );
@@ -120,3 +117,4 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+}

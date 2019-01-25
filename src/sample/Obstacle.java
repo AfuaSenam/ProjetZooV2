@@ -37,7 +37,10 @@ public interface Obstacle extends Remote {
         }
         return obstacle;
     }
-    public void renderObs(GraphicsContext gc,ArrayList<ObstacleImpl> obstacle);
+    public static void renderObs(GraphicsContext gc,ArrayList<ObstacleImpl> obstacle){
+        for (ObstacleImpl obs : obstacle)
+            obs.render( gc );
+    };
 
 }
 

@@ -31,6 +31,7 @@ public class AnimalImpl implements Animal {
     // Constructeur
     public AnimalImpl(EspeceImpl especeImpl, String imageDestination, boolean genre){
         espece = especeImpl;
+        espece.ajouterAnimal(this);
         destination = new DestinationImpl(imageDestination);
         male = genre;
         setPosition();

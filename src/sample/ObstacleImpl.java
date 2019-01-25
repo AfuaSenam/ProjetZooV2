@@ -92,9 +92,5 @@ public class ObstacleImpl implements Obstacle {
         return s.getBoundary().intersects( getBoundary());
     }
 
-    public void renderObs(GraphicsContext gc,ArrayList<ObstacleImpl> obstacle){
-        for (ObstacleImpl obs : obstacle)
-            obs.render( gc );
-    }
 
 }
