@@ -4,6 +4,7 @@ package sample;
 import javafx.scene.image.Image;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class EspeceImpl {
     private Image imageEspece;
@@ -11,12 +12,12 @@ public class EspeceImpl {
     private double height;
     private String nomEspece = new String();
     private double vitesse=0;
+    private ArrayList<AnimalImpl> listAnimal = new ArrayList<AnimalImpl>();
 
-    public EspeceImpl(){ }
-
-    public EspeceImpl(String nom, double vit){
+    public EspeceImpl(String nom, double vit, String image){
         nomEspece = nom;
         vitesse = vit;
+        setImageEspece(image);
     }
 
     public String getNomEspece() { return nomEspece; }
@@ -42,5 +43,37 @@ public class EspeceImpl {
     {
         Image i = new Image(filename);
         setImageEspece(i);
+    }
+
+    public Image getImageEspece(){
+        return imageEspece;
+    }
+
+    public void ajouterAnimal(AnimalImpl animal){
+        listAnimal.add(animal);
+    }
+
+    public ArrayList<AnimalImpl> getListAnimal() {
+        return listAnimal;
+    }
+
+    public void setListAnimal(ArrayList<AnimalImpl> listAnimal) {
+        this.listAnimal = listAnimal;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
     }
 }

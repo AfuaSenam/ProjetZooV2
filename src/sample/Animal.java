@@ -8,10 +8,24 @@ import java.util.ArrayList;
 
 public interface Animal extends Remote {
 
-    public void ajoutAnimal(String nomImage);
+    public void setPosition();
+    public void setPosition(double x, double y);
+    public void setVelocity(double x, double y);
+    public void addVelocity(double x, double y);
+    public double getPositionX();
+    public void setPositionX(double positionX);
+    public double getPositionY();
+    public void setPositionY(double positionY);
+    public Destination getDestination();
+    public void setDestination(Destination destination);
+    public boolean isMale() ;
+    public void setMale(boolean male);
+    public EspeceImpl getEspece();
+    public void setEspece(EspeceImpl espece);
+
     public void update(double time);
     public Rectangle2D getBoundary();
-    public boolean intersects(Objet.Objet s);
-    public boolean deplacement(ArrayList<Objet.Objet> obstacle);
+    public boolean intersects(AnimalImpl ani);
+    public boolean deplacement(ArrayList<ObstacleImpl> listObstacle);
 
 }
