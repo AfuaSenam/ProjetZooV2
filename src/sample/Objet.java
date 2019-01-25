@@ -8,7 +8,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class Objet {
 
 public class Objet implements Serializable {
 
@@ -75,6 +74,14 @@ public class Objet implements Serializable {
 
     //imageDestination
 
+    public double getVitesse() {
+        return vitesse;
+    }
+
+    public void setVitesse(double vitesse) {
+        this.vitesse = vitesse;
+    }
+    
     public void setDestinationImage(Image i)
     {
         image = i;
