@@ -1,18 +1,22 @@
 package sample;
 
+import javafx.stage.Stage;
+
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.rmi.*;
 
-public class Zoo implements Serializable {
-	private String nomZoo = new String();
-	private ArrayList<Objet> listAnimaux = new ArrayList<Objet>();
-	private ArrayList<Objet> listObstacle = new ArrayList<Objet>();
+public interface Zoo extends Remote {
+	public String getNomZoo() throws RemoteException;
+	public void setNomZoo(String nomZoo) throws RemoteException;
+	public ArrayList<Objet> getListAnimaux() throws RemoteException;
+	public void setListAnimaux(ArrayList<Objet> listAnimaux) throws RemoteException;
+	public ArrayList<Objet> getListObstacle() throws RemoteException;
+	public void beginZoo(Stage primaryStage) throws RemoteException,Exception;
+	public void setListObstacle(ArrayList<Objet> listObstacle) throws RemoteException;
+	public void ajouterAninmal(Objet ani) throws RemoteException;
 
-	public Zoo() {
-		
-	}
-	
-	/// Getters & Setters
+	/*/// Getters & Setters
 	public String getNomZoo() {
 		return nomZoo;
 	}
@@ -40,5 +44,5 @@ public class Zoo implements Serializable {
 	public void ajouterAninmal(Objet ani) {
 		this.listAnimaux.add(ani);
 	}
-
+*/
 }

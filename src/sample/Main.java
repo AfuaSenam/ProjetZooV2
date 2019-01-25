@@ -20,10 +20,9 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Main extends Application implements Serializable {
+public class Main extends Application {
     double resultX;
     double resultY;
-public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -121,4 +120,3 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-}
