@@ -161,4 +161,17 @@ public class AnimalImpl implements Animal {
         }
         return rs;
     }
+
+    @Override
+    public String toString() {
+        return "AnimalImpl{" +
+                "positionX=" + positionX +
+                ", positionY=" + positionY +
+                ", velocityX=" + velocityX +
+                ", velocityY=" + velocityY +
+                ", destination=" + destination.toString() +
+                ", male=" + male +
+                ", espece=" + espece.toString() +
+                '}';
+    }
 }

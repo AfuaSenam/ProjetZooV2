@@ -9,5 +9,8 @@ public class Client {
 
     public static void main(String argv[]) throws RemoteException, MalformedURLException, NotBoundException {
         ZooImpl monZoo = (ZooImpl)Naming.lookup("//localhost/ZooImpl");
+        monZoo.beginZoo(); // PArametre Stage ??
+        monZoo.toString(); // ajouter un toString au Zoo ?
+
     }
 }

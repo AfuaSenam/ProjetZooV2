@@ -28,4 +28,6 @@ public interface Animal extends Remote {
     public boolean intersects(AnimalImpl ani);
     public boolean deplacement(ArrayList<ObstacleImpl> listObstacle);
 
+    public String toString();
+
 }
