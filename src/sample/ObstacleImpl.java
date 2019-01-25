@@ -92,22 +92,9 @@ public class ObstacleImpl implements Obstacle {
         return s.getBoundary().intersects( getBoundary());
     }
 
-    public static ArrayList<ObstacleImpl> ajoutObstacle(){
-        ArrayList<ObstacleImpl> obstacle = new ArrayList<ObstacleImpl>();
-
-        for (int i = 0; i < 15; i++)
-        {
-            ObstacleImpl obs = new ObstacleImpl();
-            obs.setImageObstacle("asset/sapin.png");
-            obs.setPosition();
-            obstacle.add( obs );
-        }
-        return obstacle;
-    }
-
-    public void renderObs(GraphicsContext gc,ArrayList<Objet.Objet> obstacle){
-        for (Objet.Objet moneybag : obstacle)
-            moneybag.render( gc );
+    public void renderObs(GraphicsContext gc,ArrayList<ObstacleImpl> obstacle){
+        for (ObstacleImpl obs : obstacle)
+            obs.render( gc );
     }
 
 }
