@@ -4,10 +4,14 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Objet {
+
+public class Objet implements Serializable {
 
     private Image image;
     private double positionX;
@@ -18,6 +22,8 @@ public class Objet {
     private double height;
     private double destinationX;
     private double destinationY;
+    private boolean male = true;
+    private Espece espece = new Espece();
     private Image destinationImage;
     private double vitesse;
     //private ArrayList<Objet> obst=new ArrayList<Objet>();
@@ -29,15 +35,14 @@ public class Objet {
         positionY = 0;
         velocityX = 0;
         velocityY = 0;
-        vitesse=0;
     }
 
-    public void setVitesse(double vitesse) {
-        this.vitesse = vitesse;
+    public Espece getEspece() {
+        return espece;
     }
 
-    public double getVitesse() {
-        return vitesse;
+    public void setEspece(Espece espece) {
+        this.espece = espece;
     }
 
     public double getPositionX() {
@@ -92,8 +97,14 @@ public class Objet {
 
     public void setDestination(double x, double y)
     {
-        destinationX = x;
-        destinationY = y;
+        destinationX = 350 * x + 50;
+        destinationY = 350 * y + 50;
+    }
+
+    public void setDestination()
+    {
+        destinationX = 350 * Math.random() + 50;
+        destinationY = 350 * Math.random() + 50;
     }
 
     public double getDestinationX() {
