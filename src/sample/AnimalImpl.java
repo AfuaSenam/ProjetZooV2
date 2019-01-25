@@ -4,9 +4,16 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class AnimalImpl implements Animal {
+    private double positionX;
+    private double positionY;
+    private double velocityX;
+    private double velocityY;
+    private Destination destination;
+    private boolean male = true;
+    private EspeceImpl especeImpl = new EspeceImpl();
+    private double vitesse;
 
     public void update(double time)
     {

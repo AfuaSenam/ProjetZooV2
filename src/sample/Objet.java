@@ -4,7 +4,6 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
-import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -23,7 +22,7 @@ public class Objet implements Serializable {
     private double destinationX;
     private double destinationY;
     private boolean male = true;
-    private Espece espece = new Espece();
+    private EspeceImpl especeImpl = new EspeceImpl();
     private Image destinationImage;
     private double vitesse;
     //private ArrayList<Objet> obst=new ArrayList<Objet>();
@@ -37,12 +36,12 @@ public class Objet implements Serializable {
         velocityY = 0;
     }
 
-    public Espece getEspece() {
-        return espece;
+    public EspeceImpl getEspeceImpl() {
+        return especeImpl;
     }
 
-    public void setEspece(Espece espece) {
-        this.espece = espece;
+    public void setEspeceImpl(EspeceImpl especeImpl) {
+        this.especeImpl = especeImpl;
     }
 
     public double getPositionX() {

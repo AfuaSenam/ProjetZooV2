@@ -1,10 +1,16 @@
 package sample;
 
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 
 import java.util.ArrayList;
 
 public class ObstacleImpl implements Obstacle {
+    private Image imageObstacle;
+    private double positionX;
+    private double positionY;
+    private double width;
+    private double height;
 
     public ArrayList<Objet.Objet> ajoutObstacle(){
         ArrayList<Objet.Objet> obstacle = new ArrayList<Objet.Objet>();

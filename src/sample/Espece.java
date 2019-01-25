@@ -1,27 +1,16 @@
 package sample;
 
-import java.io.Serializable;
+import javafx.scene.image.Image;
 
-public class Espece {
-    private String nomEspece = new String();
-    private double vitesse=0;
+import java.rmi.Remote;
 
-    public Espece(){ }
+public interface Espece extends Remote {
 
-    public Espece(String nom, double vit){
-        nomEspece = nom;
-        vitesse = vit;
-    }
+    public String getNomEspece();
+    public void setNomEspece(String nomEspece);
+    public void setVitesse(double vitesse);
+    public double getVitesse();
 
-    public String getNomEspece() { return nomEspece; }
-
-    public void setNomEspece(String nomEspece) { this.nomEspece = nomEspece; }
-
-    public void setVitesse(double vitesse) {
-        this.vitesse = vitesse;
-    }
-
-    public double getVitesse() {
-        return vitesse;
-    }
+    public void setImageEspece(Image i);
+    public void setImageEspece(String filename);
 }
