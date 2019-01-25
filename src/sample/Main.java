@@ -21,8 +21,7 @@ import java.util.Iterator;
 
 
 public class Main extends Application {
-    double resultX;
-    double resultY;
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
@@ -60,15 +59,7 @@ public class Main extends Application {
 
         ArrayList<Objet> obstacle = new ArrayList<Objet>();
 
-        for (int i = 0; i < 7; i++)
-        {
-            Objet moneybag = new Objet();
-            moneybag.setImage("asset/sapin.png");
-            double px = 350 * Math.random() + 50;
-            double py = 350 * Math.random() + 50;
-            moneybag.setPosition(px,py);
-            obstacle.add( moneybag );
-        }
+        obstacle=chien.ajoutObstacle();
 
         /*LongValue lastNanoTime = new LongValue( System.nanoTime() );
 
@@ -76,6 +67,8 @@ public class Main extends Application {
         ArrayList<String> input = new ArrayList<String>();
 
        final long startNanoTime = System.nanoTime();
+        ArrayList<Objet> finalObstacle = obstacle;
+       // ArrayList<Objet> finalObstacle1 = obstacle;
         new AnimationTimer()
         {
             public void handle(long currentNanoTime)
@@ -86,21 +79,9 @@ public class Main extends Application {
 
                 // game logic
 
-                chien.setVelocity(0,0);
-                resultX=chien.getPositionX()-chien.getDestinationX();
-                resultY=chien.getPositionY()-chien.getDestinationY();
+                boolean rs=(chien.deplacement(finalObstacle));
 
 
-
-                if(resultX<0 && resultY<0){
-                    chien.addVelocity(0,chien.getVitesse());//down
-                }else if(resultX>0 && resultY>0){
-                    chien.addVelocity(0,-chien.getVitesse());//up
-                }else if(resultX>0 && resultY<0){//left
-                    chien.addVelocity(-chien.getVitesse(),0);
-                }else if(resultX<0 && resultY>0){//right
-                    chien.addVelocity(chien.getVitesse(),0);
-                }
 
                /* if (input.contains("LEFT"))
                     chien.addVelocity(-chien.getVitesse(),0);
@@ -115,24 +96,14 @@ public class Main extends Application {
 
                 // collision detection
 
-                Iterator<Objet> moneybagIter = obstacle.iterator();
-                while ( moneybagIter.hasNext() )
-                {
-                    Objet obs = moneybagIter.next();
-                    if ( chien.intersects(obs) )
-                    {
-                        moneybagIter.remove();
-                        //score.value++;
-                    }
-                }
+
 
                 // render
 
                 gc.clearRect(0, 0, 512,512);
                 chien.render( gc );
 
-                for (Objet moneybag : obstacle )
-                    moneybag.render( gc );
+                chien.renderObs(gc,finalObstacle);
 
                 /*String pointsText = "Cash: $" + (100 * score.value);
                 gc.fillText( pointsText, 360, 36 );

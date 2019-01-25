@@ -4,6 +4,9 @@ import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Objet {
 
     private Image image;
@@ -15,7 +18,10 @@ public class Objet {
     private double height;
     private double destinationX;
     private double destinationY;
+    private Image destinationImage;
     private double vitesse;
+    //private ArrayList<Objet> obst=new ArrayList<Objet>();
+
 
     public Objet()
     {
@@ -61,6 +67,21 @@ public class Objet {
     {
         Image i = new Image(filename);
         setImage(i);
+    }
+
+    //imageDestination
+
+    public void setDestinationImage(Image i)
+    {
+        image = i;
+        width = i.getWidth();
+        height = i.getHeight();
+    }
+
+    public void setDestinationImage(String filename)
+    {
+        Image i = new Image(filename);
+        setDestinationImage(i);
     }
 
     public void setPosition(double x, double y)
@@ -116,4 +137,62 @@ public class Objet {
     {
         return s.getBoundary().intersects( this.getBoundary() );
     }
+
+    public boolean deplacement(ArrayList<Objet> obstacle){
+        //gestion d'obstacle
+        boolean rs=false;
+        double resultX;
+        double resultY;
+        setVelocity(0,0);
+        resultX=getPositionX()-getDestinationX();
+        resultY=getPositionY()-getDestinationY();
+
+        Iterator<Objet> obstacleIter = obstacle.iterator();
+        while ( obstacleIter.hasNext() )
+        {
+            Objet obs = obstacleIter.next();
+            if ( this.intersects(obs) )
+            {
+
+                //obstacleIter.remove();
+                //score.value++;
+            }else{
+                if(resultX<0 && resultY<0){//colonne inferieur et ligne inferieure
+                    addVelocity(0,getVitesse());//down
+                }else if(resultX>0 && resultY>0){
+                    addVelocity(0,-getVitesse());//up
+                }else if(resultX>0 && resultY<0){//left
+                    addVelocity(-getVitesse(),0);
+                }else if(resultX<0 && resultY>0){//right
+                    addVelocity(getVitesse(),0);
+                }else if(resultX==0 && resultY==0) {//right
+                    rs = true;
+                }
+            }
+        }
+
+
+         return rs;
+    }
+
+    public ArrayList<Objet> ajoutObstacle(){
+        ArrayList<Objet> obstacle = new ArrayList<Objet>();
+
+        for (int i = 0; i < 15; i++)
+        {
+            Objet moneybag = new Objet();
+            moneybag.setImage("asset/sapin.png");
+            double px = 350 * Math.random() + 50;
+            double py = 350 * Math.random() + 50;
+            moneybag.setPosition(px,py);
+            obstacle.add( moneybag );
+        }
+        return obstacle;
+    }
+
+    public void renderObs(GraphicsContext gc,ArrayList<Objet> obstacle){
+        for (Objet moneybag : obstacle)
+            moneybag.render( gc );
+    }
+
 }
