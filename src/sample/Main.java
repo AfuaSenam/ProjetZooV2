@@ -15,12 +15,12 @@ import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 
-
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public class Main extends Application {
+public class Main extends Application implements Serializable {
     double resultX;
     double resultY;
     @Override

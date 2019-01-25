@@ -1,6 +1,8 @@
 package sample;
 
-public class Espece {
+import java.io.Serializable;
+
+public class Espece implements Serializable {
     private String nomEspece = new String();
     private double vitesse=0;
 

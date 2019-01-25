@@ -1,8 +1,9 @@
 package sample;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Zoo {
+public class Zoo implements Serializable {
 	private String nomZoo = new String();
 	private ArrayList<Objet> listAnimaux = new ArrayList<Objet>();
 	private ArrayList<Objet> listObstacle = new ArrayList<Objet>();

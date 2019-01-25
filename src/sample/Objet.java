@@ -5,8 +5,9 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.awt.*;
+import java.io.Serializable;
 
-public class Objet {
+public class Objet implements Serializable {
 
     private Image image;
     private double positionX;
