@@ -2,7 +2,7 @@ package sample;
 
 import java.io.Serializable;
 
-public class Espece implements Serializable {
+public class Espece {
     private String nomEspece = new String();
     private double vitesse=0;
 
