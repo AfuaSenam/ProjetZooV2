@@ -20,6 +20,10 @@ public class EspeceImpl {
         setImageEspece(image);
     }
 
+    public EspeceImpl() {
+
+    }
+
     public String getNomEspece() { return nomEspece; }
 
     public void setNomEspece(String nomEspece) { this.nomEspece = nomEspece; }
