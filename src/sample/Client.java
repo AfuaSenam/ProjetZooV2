@@ -10,22 +10,24 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 
-public class Client{
+public class Client extends Application{
 
     public static void main(String argv[]) throws RemoteException, NotBoundException {
-        Registry a= LocateRegistry.getRegistry("localhost",1099);
-        Zoo zoo = (Zoo) a.lookup("zoo");
-        //launch(argv);
+
+        launch(argv);
 
     }
 
-    /*@Override
+    @Override
     public void start(Stage primaryStage) throws RemoteException,Exception {
 
 
         //ZooImpl monZoo = new ZooImpl();
         //a.bind("Zoo",monZoo);
         //System.out.println("Zoo: "+zoo);
-        //monZoo.beginZoo(primaryStage);
-}*/
+        Registry a= LocateRegistry.getRegistry("localhost",1099);
+        Zoo zoo = (Zoo) a.lookup("zoo");
+        zoo.setNomZoo("okk");
+        System.out.println(zoo.getNomZoo());
+}
 }

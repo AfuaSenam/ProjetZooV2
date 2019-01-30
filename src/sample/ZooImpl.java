@@ -10,14 +10,32 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ZooImpl implements Zoo {
+public class ZooImpl extends UnicastRemoteObject implements Zoo {
 
     public String nomZoo = new String();
     public ArrayList<AnimalImpl> listAnimaux = new ArrayList<AnimalImpl>();
     public ArrayList<ObstacleImpl> listObstacle = new ArrayList<ObstacleImpl>();
     public AnimalImpl animal1;
+
+    public AnimalImpl getAnimal1() {
+        return animal1;
+    }
+
+    public void setAnimal1(AnimalImpl animal1) {
+        this.animal1 = animal1;
+    }
+
+    public ZooImpl() throws RemoteException {
+
+    }
+
+    public ZooImpl(Stage apl) throws RemoteException,Exception {
+        this.beginZoo(apl);
+    }
+
     @Override
     public String getNomZoo() throws RemoteException {
         return nomZoo;
