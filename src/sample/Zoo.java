@@ -11,7 +11,7 @@ public interface Zoo extends Remote {
 	public ArrayList<AnimalImpl> getListAnimaux() throws RemoteException;
 	public void setListAnimaux(ArrayList<AnimalImpl> listAnimaux) throws RemoteException;
 	public ArrayList<ObstacleImpl> getListObstacle() throws RemoteException;
-	public void beginZoo(Stage primaryStage) throws RemoteException,Exception;
+	public void beginZoo() throws RemoteException,Exception;
 	public void setListObstacle(ArrayList<ObstacleImpl> listObstacle) throws RemoteException;
 	public void ajouterAninmal(AnimalImpl ani) throws RemoteException;
 

@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.animation.AnimationTimer;
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Group;
 import javafx.scene.Parent;
@@ -13,7 +14,7 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ZooImpl extends UnicastRemoteObject implements Zoo {
+public class ZooImpl extends Application implements Zoo {
 
     public String nomZoo = new String();
     public ArrayList<AnimalImpl> listAnimaux = new ArrayList<AnimalImpl>();
@@ -32,37 +33,8 @@ public class ZooImpl extends UnicastRemoteObject implements Zoo {
 
     }
 
-    public ZooImpl(Stage apl) throws RemoteException,Exception {
-        this.beginZoo(apl);
-    }
-
     @Override
-    public String getNomZoo() throws RemoteException {
-        return nomZoo;
-    }
-
-    @Override
-    public void setNomZoo(String nomZoo) throws RemoteException {
-        this.nomZoo = nomZoo;
-    }
-
-    @Override
-    public ArrayList<AnimalImpl> getListAnimaux() throws RemoteException {
-        return listAnimaux;
-    }
-
-    @Override
-    public void setListAnimaux(ArrayList<AnimalImpl> listAnimaux) throws RemoteException {
-        this.listAnimaux = listAnimaux;
-    }
-
-    @Override
-    public ArrayList<ObstacleImpl> getListObstacle() throws RemoteException {
-        return listObstacle;
-    }
-
-    @Override
-    public void beginZoo(Stage primaryStage) throws RemoteException, Exception {
+    public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo");
         //primaryStage.setScene(new Scene(root, 300, 275));
@@ -117,7 +89,37 @@ public class ZooImpl extends UnicastRemoteObject implements Zoo {
         }.start();
 
         primaryStage.show();
+    }
 
+
+    @Override
+    public String getNomZoo() throws RemoteException {
+        return nomZoo;
+    }
+
+    @Override
+    public void setNomZoo(String nomZoo) throws RemoteException {
+        this.nomZoo = nomZoo;
+    }
+
+    @Override
+    public ArrayList<AnimalImpl> getListAnimaux() throws RemoteException {
+        return listAnimaux;
+    }
+
+    @Override
+    public void setListAnimaux(ArrayList<AnimalImpl> listAnimaux) throws RemoteException {
+        this.listAnimaux = listAnimaux;
+    }
+
+    @Override
+    public ArrayList<ObstacleImpl> getListObstacle() throws RemoteException {
+        return listObstacle;
+    }
+
+    @Override
+    public void beginZoo() throws RemoteException, Exception {
+        launch();
     }
 
     @Override
