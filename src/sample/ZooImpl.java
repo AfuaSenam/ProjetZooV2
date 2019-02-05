@@ -68,7 +68,7 @@ public class ZooImpl extends Application implements Zoo {
             public void handle(long currentNanoTime)
             {
                 // calculate time since last update.
-                double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000.0;
+                double elapsedTime = (currentNanoTime - startNanoTime) / 1000000000000.0;
                 // startNanoTime = currentNanoTime;
 
                 try {
