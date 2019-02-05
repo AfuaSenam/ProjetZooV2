@@ -129,7 +129,34 @@ public class AnimalImpl implements Animal {
         return ani.getBoundary().intersects( this.getBoundary() );
     }
 
-    public boolean deplacement(ArrayList<ObstacleImpl> listObstacle){
+    public boolean rencontre(ArrayList<AnimalImpl> listAnimaux){
+        Iterator<AnimalImpl> animalIter = listAnimaux.iterator();
+        boolean bebe=false;
+        while ( animalIter.hasNext() ) {
+            AnimalImpl ani = animalIter.next();
+            if(this.intersects(ani)){
+                if(this.espece==ani.espece){
+                    if(this.isMale()==ani.isMale()){
+                        // meme genre
+                        //pas de bébé
+                    }
+                    else {
+                        // new bébé()
+                     //   ZooImpl.ajouterAnimal(this.espece.getNomEspece(), this.espece.getVitesse(), this.espece.getImageEspece(), "destination.png", true);
+                        bebe=true;
+                    }
+                }
+                else{
+                    // especes différentes
+                    //pas de bébé ... un mort ?
+                }
+            }
+        }
+        return bebe;
+
+    }
+
+    public boolean deplacement(ArrayList<ObstacleImpl> listObstacle, ArrayList<AnimalImpl> listAnimaux){
         //gestion d'obstacle
         boolean rs=false;
         double resultX;
@@ -140,13 +167,12 @@ public class AnimalImpl implements Animal {
         Iterator<ObstacleImpl> obstacleIter = listObstacle.iterator();
         while ( obstacleIter.hasNext() )
         {
+            rencontre(listAnimaux);
             resultX=getPositionX()-destination.getDestinationX();
             resultY=getPositionY()-destination.getDestinationY();
             ObstacleImpl obs = obstacleIter.next();
             if((this.getPositionX()==this.getDestination().getDestinationX()) && (this.getPositionY()==this.getDestination().getDestinationY())){
                 this.destination.setDestination();
-                //resultX=getPositionX()-destination.getDestinationX();
-                //resultY=getPositionY()-destination.getDestinationY();
             }
             else{
                 if ( this.intersects(obs) )
@@ -155,8 +181,6 @@ public class AnimalImpl implements Animal {
                     //score.value++;
 
                     this.destination.setDestination();
-                    //resultX=getPositionX()-destination.getDestinationX();
-                    //resultY=getPositionY()-destination.getDestinationY();
                 }else{
                     if(resultX<0 && resultY<0){//colonne inferieur et ligne inferieure
                         addVelocity(0,espece.getVitesse());//down
