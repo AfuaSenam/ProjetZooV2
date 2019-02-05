@@ -43,8 +43,8 @@ public class ZooImpl extends Application implements Zoo {
         Scene theScene = new Scene( group );
         primaryStage.setScene( theScene );
 
-        final double WIDTH = 30; // image width
-        final double HEIGHT = 30; // image height
+        final double WIDTH = 15; // image width
+        final double HEIGHT = 15; // image height
 
         final double CANVAS_WIDTH = 512;
         final double CANVAS_HEIGHT = 512;
@@ -68,7 +68,7 @@ public class ZooImpl extends Application implements Zoo {
             public void handle(long currentNanoTime)
             {
                 // calculate time since last update.
-                double elapsedTime = (currentNanoTime - startNanoTime) / 1000000000000.0;
+                double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000000.0;
                 // startNanoTime = currentNanoTime;
 
                 try {
@@ -131,4 +131,11 @@ public class ZooImpl extends Application implements Zoo {
     public void ajouterAninmal(AnimalImpl ani) throws RemoteException {
         this.listAnimaux.add(ani);
     }
+
+    @Override
+    public void ajouterAninmal(String nomEspece, double vitesse, String imageEspece, String imageDestination, boolean genre) throws RemoteException {
+        AnimalImpl ani = new AnimalImpl(nomEspece, vitesse, imageEspece, imageDestination, genre);
+        this.listAnimaux.add(ani);
+    }
+
 }

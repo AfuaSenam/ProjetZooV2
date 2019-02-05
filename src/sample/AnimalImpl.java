@@ -135,30 +135,43 @@ public class AnimalImpl implements Animal {
         double resultX;
         double resultY;
         setVelocity(0,0);
-        resultX=getPositionX()-destination.getDestinationX();
-        resultY=getPositionY()-destination.getDestinationY();
+
 
         Iterator<ObstacleImpl> obstacleIter = listObstacle.iterator();
         while ( obstacleIter.hasNext() )
         {
+            resultX=getPositionX()-destination.getDestinationX();
+            resultY=getPositionY()-destination.getDestinationY();
             ObstacleImpl obs = obstacleIter.next();
-            if ( this.intersects(obs) )
-            {
-                //obstacleIter.remove();
-                //score.value++;
-            }else{
-                if(resultX<0 && resultY<0){//colonne inferieur et ligne inferieure
-                    addVelocity(0,espece.getVitesse());//down
-                }else if(resultX>0 && resultY>0){
-                    addVelocity(0,-espece.getVitesse());//up
-                }else if(resultX>0 && resultY<0){//left
-                    addVelocity(-espece.getVitesse(),0);
-                }else if(resultX<0 && resultY>0){//right
-                    addVelocity(espece.getVitesse(),0);
-                }else if(resultX==0 && resultY==0) {//right
-                    rs = true;
+            if((this.getPositionX()==this.getDestination().getDestinationX()) && (this.getPositionY()==this.getDestination().getDestinationY())){
+                this.destination.setDestination();
+                //resultX=getPositionX()-destination.getDestinationX();
+                //resultY=getPositionY()-destination.getDestinationY();
+            }
+            else{
+                if ( this.intersects(obs) )
+                {
+                    //obstacleIter.remove();
+                    //score.value++;
+
+                    this.destination.setDestination();
+                    //resultX=getPositionX()-destination.getDestinationX();
+                    //resultY=getPositionY()-destination.getDestinationY();
+                }else{
+                    if(resultX<0 && resultY<0){//colonne inferieur et ligne inferieure
+                        addVelocity(0,espece.getVitesse());//down
+                    }else if(resultX>0 && resultY>0){
+                        addVelocity(0,-espece.getVitesse());//up
+                    }else if(resultX>0 && resultY<0){//left
+                        addVelocity(-espece.getVitesse(),0);
+                    }else if(resultX<0 && resultY>0){//right
+                        addVelocity(espece.getVitesse(),0);
+                    }else if(resultX==0 && resultY==0) {//right
+                        rs = true;
+                    }
                 }
             }
+
         }
         return rs;
     }

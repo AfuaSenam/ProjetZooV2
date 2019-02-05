@@ -14,6 +14,7 @@ public interface Zoo extends Remote {
 	public void beginZoo() throws RemoteException,Exception;
 	public void setListObstacle(ArrayList<ObstacleImpl> listObstacle) throws RemoteException;
 	public void ajouterAninmal(AnimalImpl ani) throws RemoteException;
+	public void ajouterAninmal(String nomEspece, double vitesse, String imageEspece, String imageDestination, boolean genre) throws RemoteException;
 
 	/*/// Getters & Setters
 	public String getNomZoo() {
