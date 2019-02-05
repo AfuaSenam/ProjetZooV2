@@ -26,7 +26,8 @@ public interface Animal extends Remote {
     public void update(double time);
     public Rectangle2D getBoundary();
     public boolean intersects(AnimalImpl ani);
-    public boolean deplacement(ArrayList<ObstacleImpl> listObstacle);
+    public boolean rencontre(ArrayList<AnimalImpl> listAnimaux);
+    public boolean deplacement(ArrayList<ObstacleImpl> listObstacle, ArrayList<AnimalImpl> listAnimaux);
 
     public String toString();
 

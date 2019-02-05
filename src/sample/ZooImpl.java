@@ -55,7 +55,7 @@ public class ZooImpl extends Application implements Zoo {
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
         //Ajout animal
-        animal1=new AnimalImpl("Chien",50,"asset/chien.jpg","asset/mine.png",false);
+        animal1=new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
 
         //Fonction obstacle
 
@@ -72,7 +72,7 @@ public class ZooImpl extends Application implements Zoo {
                 // startNanoTime = currentNanoTime;
 
                 try {
-                    boolean rs=(animal1.deplacement(getListObstacle()));
+                    boolean rs=(animal1.deplacement(getListObstacle(), getListAnimaux()));
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
