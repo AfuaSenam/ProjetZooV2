@@ -39,28 +39,12 @@ public interface Obstacle extends Remote {
     public void render(GraphicsContext gc) throws RemoteException;
 
     public Rectangle2D getBoundary() throws RemoteException;
-    public  void renderObs(GraphicsContext gc,ArrayList<Obstacle> obstacle) throws RemoteException;
+
+    public void renderObs(GraphicsContext gc, ArrayList<ObstacleImpl> obstacle) throws RemoteException;
 
     public boolean intersects(ObstacleImpl s) throws RemoteException;
 
-    //public  void renderObs(GraphicsContext gc,ArrayList<Obstacle> obstacle) throws RemoteException;
-    public static ArrayList<ObstacleImpl> ajoutObstacle() throws RemoteException {
-        ArrayList<ObstacleImpl> obstacle = new ArrayList<ObstacleImpl>();
-
-        for (int i = 0; i < 15; i++) {
-            ObstacleImpl obs = new ObstacleImpl();
-            obs.setImageObstacle("asset/sapin.png");
-            obs.setPosition();
-            obstacle.add(obs);
-        }
-        return obstacle;
-    }
 }
-    /*public static void renderObs(GraphicsContext gc,ArrayList<Obstacle> obstacle) throws RemoteException{
-        for (Obstacle obs : obstacle)
-            obs.render( gc );
-    };*/
-
 
 
 

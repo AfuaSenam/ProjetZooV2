@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //import java.net.MalformedURLException;
@@ -19,33 +20,18 @@ import java.util.ArrayList;
 public class Client extends Application{
     public AnimalImpl animal1;
     public static void main(String argv[]) throws Exception {
-       /* Registry a= LocateRegistry.getRegistry("localhost",1099);
-        Zoo zoo = (Zoo) a.lookup("zoo");
-        Obstacle obst=(Obstacle) a.lookup("obs");
-        zoo.setNomZoo("okk");
-        obst.setPositionX(100);
-        System.out.println(obst.getPositionX());
-        System.out.println(zoo.getNomZoo());*/
         launch();
-        //zoo.beginZoo();
     }
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Registry a= LocateRegistry.getRegistry("localhost",1099);
         Zoo zoo = (Zoo) a.lookup("zoo");
-       // Obstacle obst=(Obstacle) a.lookup("obs");
-        //ArrayList<Obstacle> obstList=new ArrayList<(Obstacle) a.lookup("obs")>();
         zoo.setNomZoo("okk");
-        //obst.setPositionX(100);
-        //System.out.println(obst.getPositionX());
         System.out.println(zoo.getNomZoo());
 
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo");
-        //primaryStage.setScene(new Scene(root, 300, 275));
 
         Group group = new Group();
         Scene theScene = new Scene( group );
@@ -66,7 +52,18 @@ public class Client extends Application{
         animal1=new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
 
         //Fonction obstacle
-        zoo.ajoutObstacle();
+        String image = new String("asset/sapin.png");
+        Image im = new Image(image);
+
+        ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
+        for (int i = 0; i < 15; i++) {
+            ObstacleImpl obs = new ObstacleImpl(im);
+            obs.setImageObstacle("asset/sapin.png");
+            obs.setPosition();
+            listObst.add(obs);
+        }
+        zoo.setListObstacle(listObst);
+
 
         //------------------------------Animation timer-------------------//
         final long startNanoTime = System.nanoTime();

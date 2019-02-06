@@ -2,6 +2,7 @@ package sample;
 
 import javafx.geometry.Rectangle2D;
 
+import java.io.Serializable;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;

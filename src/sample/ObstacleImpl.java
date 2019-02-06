@@ -9,8 +9,8 @@ import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
-public class ObstacleImpl  implements Serializable {//extends UnicastRemoteObject implements Obstacle
-    private Image imageObstacle;
+public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastRemoteObject implements Obstacle
+    private transient Image imageObstacle;
     private double positionX;
     private double positionY;
     private double width;
@@ -19,6 +19,10 @@ public class ObstacleImpl  implements Serializable {//extends UnicastRemoteObjec
     public ObstacleImpl()  {
     }
 
+    public ObstacleImpl(Image im) throws RemoteException {
+        this.setImageObstacle(im);
+        this.setPosition();
+    }
 
     public Image getImageObstacle() throws RemoteException {
         return imageObstacle;
@@ -88,7 +92,6 @@ public class ObstacleImpl  implements Serializable {//extends UnicastRemoteObjec
     {
         return new Rectangle2D(positionX, positionY, width, height);
     }//fonction permettant de savoir si il y a un obstacle à cette position
-
 
     public void renderObs(GraphicsContext gc, ArrayList<ObstacleImpl> obstacle) throws RemoteException {
         for (ObstacleImpl obs : obstacle)

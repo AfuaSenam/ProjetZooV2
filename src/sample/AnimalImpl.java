@@ -3,11 +3,12 @@ package sample;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.GraphicsContext;
 
+import java.io.Serializable;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Iterator;
 
-public class AnimalImpl implements Animal {
+public class AnimalImpl implements Animal, Serializable {
     //x colonne, y ligne
     private double positionX;
     private double positionY;
@@ -16,6 +17,7 @@ public class AnimalImpl implements Animal {
     private Destination destination;
     private boolean male = true;
     private EspeceImpl espece;
+
 
     // constructeur + Creation espece
     public AnimalImpl(String nomEspece, double vitesse, String imageEspece, String imageDestination, boolean genre) throws RemoteException {
@@ -37,6 +39,9 @@ public class AnimalImpl implements Animal {
         setPosition();
     }
 
+    public AnimalImpl(){}
+
+    //getters & setters
     public void setPosition(double x, double y) throws RemoteException {
         positionX = x;
         positionY = y;
