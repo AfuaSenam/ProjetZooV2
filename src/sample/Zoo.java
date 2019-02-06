@@ -1,6 +1,6 @@
 package sample;
 
-import javafx.stage.Stage;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.util.ArrayList;
 import java.rmi.*;
@@ -14,6 +14,8 @@ public interface Zoo extends Remote {
 	public void beginZoo() throws RemoteException,Exception;
 	public void setListObstacle(ArrayList<ObstacleImpl> listObstacle) throws RemoteException;
 	public void ajouterAninmal(AnimalImpl ani) throws RemoteException;
+	public void renderObs(GraphicsContext gc) throws RemoteException;
+	public void ajoutObstacle() throws RemoteException;
 	public void ajouterAninmal(String nomEspece, double vitesse, String imageEspece, String imageDestination, boolean genre) throws RemoteException;
 
 	/*/// Getters & Setters

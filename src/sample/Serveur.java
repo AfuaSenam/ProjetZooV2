@@ -14,10 +14,13 @@ public class Serveur  extends ZooImpl{
 
         try {
             ZooImpl monZoo = new ZooImpl();
+           // ObstacleImpl obs=new ObstacleImpl();
             Zoo stub = (Zoo) UnicastRemoteObject.exportObject(monZoo, 1099);
             Registry reg= LocateRegistry.createRegistry(1099);
             reg.bind("zoo",stub);
+            //reg.bind("obs",obs);
             System.out.println("Zoo bon " + monZoo);
+            //System.out.println("obs bon " + obs);
             while(true){
 
             }

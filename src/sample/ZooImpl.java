@@ -11,7 +11,6 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.stage.Stage;
 
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class ZooImpl extends Application implements Zoo {
@@ -34,7 +33,7 @@ public class ZooImpl extends Application implements Zoo {
     }
 
     @Override
-    public void start(Stage primaryStage) throws Exception {
+    public void start(Stage primaryStage) throws Exception, RemoteException {
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Zoo");
         //primaryStage.setScene(new Scene(root, 300, 275));
@@ -71,20 +70,28 @@ public class ZooImpl extends Application implements Zoo {
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000000.0;
                 // startNanoTime = currentNanoTime;
 
-                try {
-                    boolean rs=(animal1.deplacement(getListObstacle(), getListAnimaux()));
+                /*try {
+                   // boolean rs=(animal1.deplacement(getListObstacle(), getListAnimaux()));
                 } catch (RemoteException e) {
                     e.printStackTrace();
-                }
+                }*/
 
-                animal1.update(elapsedTime);//pour le temps
-                gc.clearRect(0, 0, 512,512);
-                animal1.render( gc );
                 try {
-                    Obstacle.renderObs(gc,getListObstacle());
+                    animal1.update(elapsedTime);//pour le temps
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+                gc.clearRect(0, 0, 512,512);
+                try {
+                    animal1.render( gc );
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                /*try {
+                    //Obstacle.renderObs(gc,getListObstacle());
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }*/
             }
         }.start();
 
@@ -137,5 +144,20 @@ public class ZooImpl extends Application implements Zoo {
         AnimalImpl ani = new AnimalImpl(nomEspece, vitesse, imageEspece, imageDestination, genre);
         this.listAnimaux.add(ani);
     }
-
+    @Override
+    public void renderObs(GraphicsContext gc) throws RemoteException {
+        for (ObstacleImpl obs : listObstacle)
+            obs.render( gc );
+    }
+    @Override
+    public void ajoutObstacle() throws RemoteException {
+        ArrayList<ObstacleImpl> obst=new ArrayList<ObstacleImpl>();
+        for (int i = 0; i < 15; i++) {
+            ObstacleImpl obs = new ObstacleImpl();
+            obs.setImageObstacle("asset/sapin.png");
+            obs.setPosition();
+            obst.add(obs);
+        }
+        setListObstacle(obst);
+    }
 }
