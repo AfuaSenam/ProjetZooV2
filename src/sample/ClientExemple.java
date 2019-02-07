@@ -29,8 +29,8 @@ public class ClientExemple extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Registry a= LocateRegistry.getRegistry("localhost",1099);
-        Zoo zoo = (Zoo) a.lookup("zoo");
+        /*Registry reg= LocateRegistry.getRegistry("localhost",1099);
+        Zoo zoo = (Zoo) reg.lookup("zoo");
         zoo.setNomZoo("okk");
         System.out.println(zoo.getNomZoo());
 
@@ -151,6 +151,6 @@ public class ClientExemple extends Application{
 
         gameLoop.getKeyFrames().add( kf );
         gameLoop.play();
-        primaryStage.show();
+        primaryStage.show();*/
     }
 }

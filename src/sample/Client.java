@@ -54,23 +54,22 @@ public class Client extends Application{
         if(zoo.getListObstacle().isEmpty()){
             ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
             for (int i = 0; i < 7; i++) {
-
                 ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
-
                 listObst.add(obs);
             }
             zoo.setListObstacle(listObst);
             System.out.println(zoo.getListObstacle());
         }
 
-        //Ajout animal
-
+        //Ajout animal sur position !obstacle
         for (int i = 0; i < 4; i++) {
             AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
-            for (ObstacleImpl obs:zoo.getListObstacle()){
-                if(!ani.intersects(obs)){
-                    zoo.ajouterAninmal(ani);
-                }
+
+            if(ani.verifIntersectObst(zoo.getListObstacle()) && ani.verifIntersectAni(zoo.getListAnimaux())){
+                zoo.ajouterAninmal(ani);
+                System.out.println(i +"X = " + ani.getPositionX());
+                System.out.println(i +"Y = " + ani.getPositionY());
+
             }
 
 
@@ -88,9 +87,6 @@ public class Client extends Application{
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000000.0;
                 // startNanoTime = currentNanoTime;
 
-                // Display obstacle
-
-
                 // Deplacement animal
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
@@ -102,11 +98,24 @@ public class Client extends Application{
                     e.printStackTrace();
                 }
 
-                // Recalcul Animal ??
+                // Recalcul position Animal
                 try {
-
+                    int i=0;
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         ani.update(elapsedTime);//pour le temps
+                        /*if(i==1){
+                            System.out.println("1: X = " + ani.getPositionX());
+                            System.out.println("1: Y = " + ani.getPositionY());
+                            System.out.println("1: Velo X = " + ani.getVelocityX());
+                            System.out.println("1: Velo Y = " + ani.getVelocityY());
+                        }
+                        if(i==2){
+                            System.out.println("2: X = " + ani.getPositionX());
+                            System.out.println("2: Y = " + ani.getPositionY());
+                            System.out.println("2: Velo X = " + ani.getVelocityX());
+                            System.out.println("2: Velo Y = " + ani.getVelocityY());
+                        }
+                        i++;*/
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -123,6 +132,7 @@ public class Client extends Application{
                     e.printStackTrace();
                 }
 
+                // Display obstacle
                 try {
                     for (ObstacleImpl obs : zoo.getListObstacle()){
                         gc.drawImage(obs.getImageObstacle(), obs.getPositionY(), obs.getPositionY());

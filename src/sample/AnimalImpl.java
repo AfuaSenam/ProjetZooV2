@@ -48,27 +48,17 @@ public class AnimalImpl implements Animal, Serializable {
         positionY = y;
     }
 
-    public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException{
-        boolean t=true;
-        for (ObstacleImpl obs:listeObst){
-            if(this.intersects(obs))
-                t=false;
-        }
-        return t;
+    public double getVelocityX() {
+        return velocityX;
     }
-    public boolean verifIntersectAni(ArrayList<AnimalImpl> listeAni) throws RemoteException{
-        boolean t=true;
-        for (AnimalImpl obs:listeAni){
-            if(this.intersects(obs))
-                t=false;
-        }
-        return t;
+
+    public double getVelocityY() {
+        return velocityY;
     }
 
     public void setPosition() throws RemoteException {
-        positionX = 150 * Math.random() + 50;
-        positionY = 250 * Math.random() + 50;
-        // + verifier qu'il n'y a rien à cet endroit
+        positionX = 50 + Math.random()*(512);
+        positionY = 50 + Math.random()*(512);
     }
 
 
@@ -125,6 +115,7 @@ public class AnimalImpl implements Animal, Serializable {
     public void update(double time) throws RemoteException {
         positionX += velocityX * time;
         positionY += velocityY * time;
+
     }
 
     public void render(GraphicsContext gc) throws RemoteException {
@@ -139,6 +130,23 @@ public class AnimalImpl implements Animal, Serializable {
     public Rectangle2D getBoundary() throws RemoteException {
         return new Rectangle2D(positionX, positionY, espece.getWidth(), espece.getHeight());
     }//fonction permettant de savoir si il y a un obstacle à cette position
+
+    public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException{
+        boolean t = true;
+        for (ObstacleImpl obs:listeObst){
+            if(this.intersects(obs))
+                t = false;
+        }
+        return t;
+    }
+    public boolean verifIntersectAni(ArrayList<AnimalImpl> listeAni) throws RemoteException{
+        boolean t=true;
+        for (AnimalImpl obs:listeAni){
+            if(this.intersects(obs))
+                t=false;
+        }
+        return t;
+    }
 
     public boolean intersects(ObstacleImpl s) throws RemoteException {
         return s.getBoundary().intersects(this.getBoundary());
@@ -201,24 +209,24 @@ public class AnimalImpl implements Animal, Serializable {
                 } else {
                     // inferieur X / ligne Y
                     if (resultX < 0 && resultY < 0) {
-                        addVelocity(0, espece.getVitesse());//down
-                        //System.out.println("go down");
+                        addVelocity(1, espece.getVitesse());//down
+                       // System.out.println("go down");
 
                     } else if (resultX > 0 && resultY > 0) {
-                        addVelocity(0, -espece.getVitesse());//up
-                        //System.out.println("go up");
+                        addVelocity(1, -espece.getVitesse());//up
+                       // System.out.println("go up");
 
                     } else if (resultX > 0 && resultY < 0) {//left
-                        addVelocity(-espece.getVitesse(), 0);
-                        //System.out.println("go left");
+                        addVelocity(-espece.getVitesse(), 1);
+                       // System.out.println("go left");
 
                     } else if (resultX < 0 && resultY > 0) {//right
-                        addVelocity(espece.getVitesse(), 0);
-                        //System.out.println("go right");
+                        addVelocity(espece.getVitesse(), 1);
+                       // System.out.println("go right");
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;
-                        //System.out.println("stop");
+                       // System.out.println("stop");
                     }
                 }
             }

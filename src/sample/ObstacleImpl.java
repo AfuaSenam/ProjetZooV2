@@ -57,8 +57,9 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
     }
 
     public void setPosition() throws RemoteException {
-        positionX = 350 * Math.random() + 20;
-        positionY = 350 * Math.random() + 20;
+        // position = min + math.random()*(Max-Min)
+        positionX = 10 + Math.random()*(512-10);
+        positionY = 10 + Math.random()*(512-10);
     }
 
     public double getPositionY() throws RemoteException {
