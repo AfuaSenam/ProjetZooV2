@@ -78,6 +78,8 @@ public class Client extends Application{
                 // calculate time since last update.
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000000.0;
                 // startNanoTime = currentNanoTime;
+
+                // Display obstacle
                 try {
                     for (ObstacleImpl obs : zoo.getListObstacle()){
                         obs.render(gc);
@@ -85,6 +87,8 @@ public class Client extends Application{
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+
+                // Deplacement animal
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
@@ -92,6 +96,8 @@ public class Client extends Application{
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
+
+                // Recalcul Animal ??
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         ani.update(elapsedTime);//pour le temps
@@ -100,6 +106,8 @@ public class Client extends Application{
                     e.printStackTrace();
                 }
                 gc.clearRect(0, 0, 512,512);
+
+                // Display Animal
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         ani.render( gc );
