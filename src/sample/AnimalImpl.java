@@ -36,7 +36,7 @@ public class AnimalImpl implements Animal, Serializable {
         espece.ajouterAnimal(this);
         destination = new DestinationImpl(imageDestination);
         male = genre;
-        setPosition();
+        this.setPosition();
         this.setVelocity(0, 0);
     }
 
@@ -57,8 +57,8 @@ public class AnimalImpl implements Animal, Serializable {
     }
 
     public void setPosition() throws RemoteException {
-        positionX = 50 + Math.random()*(512);
-        positionY = 50 + Math.random()*(512);
+        positionX = Math.random()*(512-50);
+        positionY = Math.random()*(512-50);
     }
 
 
@@ -68,8 +68,8 @@ public class AnimalImpl implements Animal, Serializable {
     }
 
     public void addVelocity(double x, double y) throws RemoteException {
-        velocityX += x;
-        velocityY += y;
+        this.velocityX += x;
+        this.velocityY += y;
     }
 
     public double getPositionX() throws RemoteException {
@@ -113,8 +113,8 @@ public class AnimalImpl implements Animal, Serializable {
     }
 
     public void update(double time) throws RemoteException {
-        positionX += velocityX * time;
-        positionY += velocityY * time;
+        this.positionX += this.velocityX * time;
+        this.positionY += this.velocityY * time;
 
     }
 
@@ -208,20 +208,22 @@ public class AnimalImpl implements Animal, Serializable {
 
                 } else {
                     // inferieur X / ligne Y
+
+                  //  System.out.println("vitesse = " + espece.getVitesse());
                     if (resultX < 0 && resultY < 0) {
-                        addVelocity(1, espece.getVitesse());//down
+                        addVelocity(0, espece.getVitesse());//down
                        // System.out.println("go down");
 
                     } else if (resultX > 0 && resultY > 0) {
-                        addVelocity(1, -espece.getVitesse());//up
+                        addVelocity(0, -espece.getVitesse());//up
                        // System.out.println("go up");
 
                     } else if (resultX > 0 && resultY < 0) {//left
-                        addVelocity(-espece.getVitesse(), 1);
+                        addVelocity(-espece.getVitesse(), 0);
                        // System.out.println("go left");
 
                     } else if (resultX < 0 && resultY > 0) {//right
-                        addVelocity(espece.getVitesse(), 1);
+                        addVelocity(espece.getVitesse(), 0);
                        // System.out.println("go right");
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
