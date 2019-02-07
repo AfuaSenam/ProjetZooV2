@@ -29,7 +29,7 @@ public class ClientExemple extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        /*Registry reg= LocateRegistry.getRegistry("localhost",1099);
+        Registry reg= LocateRegistry.getRegistry("localhost",1099);
         Zoo zoo = (Zoo) reg.lookup("zoo");
         zoo.setNomZoo("okk");
         System.out.println(zoo.getNomZoo());
@@ -96,20 +96,6 @@ public class ClientExemple extends Application{
 
                         //double x = 232 + 128 * Math.cos(t);
                         //double y = 232 + 128 * Math.sin(t);
-
-                        //deplacement
-
-                        try {
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
-                                boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
-
-                                System.out.println(ani.getPositionX()+" Y : "+ani.getPositionY()+" Destination : "+ani.getDestination().getDestinationX()+" Y: "+ani.getDestination().getDestinationY());
-
-                                // System.out.println(ani+ " " + rs);
-                            }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
                         try {
 
                             for (AnimalImpl ani : zoo.getListAnimaux()){
@@ -118,8 +104,28 @@ public class ClientExemple extends Application{
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
+                        //deplacement
 
+                        /*try {
+                            for (AnimalImpl ani : zoo.getListAnimaux()){
+                                boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+                                System.out.println(ani.getPositionX()+" Y : "+ani.getPositionY()+" Destination : "+ani.getDestination().getDestinationX()+" Y: "+ani.getDestination().getDestinationY());
 
+                                // System.out.println(ani+ " " + rs);
+                            }
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }*/
+                        try {
+                            for (AnimalImpl ani : zoo.getListAnimaux()){
+                                ani.setPositionX(232 + 128 * Math.cos(t));
+                                ani.setPositionY(232 + 128 * Math.sin(t));
+                                
+                            }
+                        } catch (RemoteException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println();
 
                         // Clear the canvas
                         gc.clearRect(0, 0, 512,512);
@@ -130,7 +136,7 @@ public class ClientExemple extends Application{
                         // background image clears canvas
                         try {
                             for (AnimalImpl ani : zoo.getListAnimaux()){
-                                ani.render( gc );
+                                gc.drawImage(ani.getEspece().getImageEspece(), ani.getPositionY(), ani.getPositionY());
                             }
                         } catch (RemoteException e) {
                             e.printStackTrace();
@@ -140,7 +146,6 @@ public class ClientExemple extends Application{
                             for (ObstacleImpl obs : zoo.getListObstacle()){
                                 gc.drawImage(obs.getImageObstacle(), obs.getPositionY(), obs.getPositionY());
                                 //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
-
                             }
 
                         } catch (RemoteException e) {
@@ -151,6 +156,6 @@ public class ClientExemple extends Application{
 
         gameLoop.getKeyFrames().add( kf );
         gameLoop.play();
-        primaryStage.show();*/
+        primaryStage.show();
     }
 }

@@ -73,6 +73,14 @@ public class ZooImpl implements Zoo, Serializable {
         ObstacleImpl obs = new ObstacleImpl(im);
         this.listObstacle.add(obs);
     }
+
+    @Override
+    public void ajoutListeObs(String url, int n) throws RemoteException {
+        for (int i = 0; i < n; i++) {
+            ObstacleImpl obs = new ObstacleImpl(url);
+            listObstacle.add(obs);
+        }
+    }
 /*
     @Override
     public void ajoutObstacle(Image im) throws RemoteException {
