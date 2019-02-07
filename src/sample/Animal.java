@@ -25,6 +25,7 @@ public interface Animal extends Remote {
     public EspeceImpl getEspece() throws RemoteException;
     public void setEspece(EspeceImpl espece) throws RemoteException;
 
+    public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException;
     public void update(double time) throws RemoteException;
     public void render(GraphicsContext gc) throws RemoteException;
     public void renderAni(GraphicsContext gc, ArrayList<Animal> animals) throws RemoteException;

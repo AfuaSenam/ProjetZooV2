@@ -27,6 +27,7 @@ public class AnimalImpl implements Animal, Serializable {
         destination = new DestinationImpl(imageDestination);
         male = genre;
         setPosition();
+        setVelocity(0, 0);
     }
 
     // Constructeur
@@ -36,6 +37,7 @@ public class AnimalImpl implements Animal, Serializable {
         destination = new DestinationImpl(imageDestination);
         male = genre;
         setPosition();
+        this.setVelocity(0, 0);
     }
 
     public AnimalImpl(){}
@@ -46,9 +48,26 @@ public class AnimalImpl implements Animal, Serializable {
         positionY = y;
     }
 
+    public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException{
+        boolean t=true;
+        for (ObstacleImpl obs:listeObst){
+            if(this.intersects(obs))
+                t=false;
+        }
+        return t;
+    }
+    public boolean verifIntersectAni(ArrayList<AnimalImpl> listeAni) throws RemoteException{
+        boolean t=true;
+        for (AnimalImpl obs:listeAni){
+            if(this.intersects(obs))
+                t=false;
+        }
+        return t;
+    }
+
     public void setPosition() throws RemoteException {
-        positionX = 350 * Math.random() + 50;
-        positionY = 350 * Math.random() + 50;
+        positionX = 150 * Math.random() + 50;
+        positionY = 250 * Math.random() + 50;
         // + verifier qu'il n'y a rien à cet endroit
     }
 
@@ -159,7 +178,7 @@ public class AnimalImpl implements Animal, Serializable {
         boolean rs = false;
         double resultX;
         double resultY;
-        setVelocity(0, 0);
+
 
         //for (ObstacleImpl)
 
@@ -183,23 +202,23 @@ public class AnimalImpl implements Animal, Serializable {
                     // inferieur X / ligne Y
                     if (resultX < 0 && resultY < 0) {
                         addVelocity(0, espece.getVitesse());//down
-                        System.out.println("go down");
+                        //System.out.println("go down");
 
                     } else if (resultX > 0 && resultY > 0) {
                         addVelocity(0, -espece.getVitesse());//up
-                        System.out.println("go up");
+                        //System.out.println("go up");
 
                     } else if (resultX > 0 && resultY < 0) {//left
                         addVelocity(-espece.getVitesse(), 0);
-                        System.out.println("go left");
+                        //System.out.println("go left");
 
                     } else if (resultX < 0 && resultY > 0) {//right
                         addVelocity(espece.getVitesse(), 0);
-                        System.out.println("go right");
+                        //System.out.println("go right");
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;
-                        System.out.println("stop");
+                        //System.out.println("stop");
                     }
                 }
             }

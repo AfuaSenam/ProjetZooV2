@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //import java.net.MalformedURLException;
@@ -46,11 +47,16 @@ public class Client extends Application{
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
+        //image de fond//
+        Image image=new Image("asset/fond.png");
+
         //Ajout obstacle ssi premier client
         if(zoo.getListObstacle().isEmpty()){
             ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
-            for (int i = 0; i < 15; i++) {
+            for (int i = 0; i < 7; i++) {
+
                 ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
+
                 listObst.add(obs);
             }
             zoo.setListObstacle(listObst);
@@ -61,7 +67,12 @@ public class Client extends Application{
 
         for (int i = 0; i < 4; i++) {
             AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
-            zoo.ajouterAninmal(ani);
+            for (ObstacleImpl obs:zoo.getListObstacle()){
+                if(!ani.intersects(obs)){
+                    zoo.ajouterAninmal(ani);
+                }
+            }
+
 
         }
         System.out.println(zoo.getListAnimaux());
@@ -78,14 +89,7 @@ public class Client extends Application{
                 // startNanoTime = currentNanoTime;
 
                 // Display obstacle
-                try {
-                    for (ObstacleImpl obs : zoo.getListObstacle()){
-                        obs.render(gc);
-                        //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
-                    }
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
 
                 // Deplacement animal
                 try {
@@ -100,6 +104,7 @@ public class Client extends Application{
 
                 // Recalcul Animal ??
                 try {
+
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         ani.update(elapsedTime);//pour le temps
                     }
@@ -107,12 +112,23 @@ public class Client extends Application{
                     e.printStackTrace();
                 }
                 gc.clearRect(0, 0, 512,512);
+                gc.drawImage(image,0,0,512,512);
 
                 // Display Animal
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         ani.render( gc );
                     }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+
+                try {
+                    for (ObstacleImpl obs : zoo.getListObstacle()){
+                        gc.drawImage(obs.getImageObstacle(), obs.getPositionY(), obs.getPositionY());
+                        //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
+                    }
+
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }

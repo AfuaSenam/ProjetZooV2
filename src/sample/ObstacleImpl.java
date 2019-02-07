@@ -20,9 +20,11 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
     }
 
     public ObstacleImpl(String im) throws RemoteException {
+
         this.setUrlObstacle(im);
         this.setPosition();
     }
+
 
     public String getUrlObstacle() throws RemoteException {
         return urlObstacle;
@@ -55,8 +57,8 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
     }
 
     public void setPosition() throws RemoteException {
-        positionX = 350 * Math.random() + 50;
-        positionY = 350 * Math.random() + 50;
+        positionX = 350 * Math.random() + 20;
+        positionY = 350 * Math.random() + 20;
     }
 
     public double getPositionY() throws RemoteException {
