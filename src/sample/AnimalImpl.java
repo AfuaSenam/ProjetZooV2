@@ -166,8 +166,10 @@ public class AnimalImpl implements Animal, Serializable {
         Iterator<ObstacleImpl> obstacleIter = listObstacle.iterator();
         while (obstacleIter.hasNext()) {
             rencontre(listAnimaux);
+
             resultX = getPositionX() - destination.getDestinationX();
             resultY = getPositionY() - destination.getDestinationY();
+
             ObstacleImpl obs = obstacleIter.next();
             if ((this.getPositionX() == this.getDestination().getDestinationX()) && (this.getPositionY() == this.getDestination().getDestinationY())) {
                 this.destination.setDestination();
@@ -175,19 +177,29 @@ public class AnimalImpl implements Animal, Serializable {
                 if (this.intersects(obs)) {
                     //obstacleIter.remove();
                     //score.value++;
+                    this.destination.setDestination(); // si intersection => new destination random
 
-                    this.destination.setDestination();
                 } else {
-                    if (resultX < 0 && resultY < 0) {//colonne inferieur et ligne inferieure
+                    // inferieur X / ligne Y
+                    if (resultX < 0 && resultY < 0) {
                         addVelocity(0, espece.getVitesse());//down
+                        System.out.println("go down");
+
                     } else if (resultX > 0 && resultY > 0) {
                         addVelocity(0, -espece.getVitesse());//up
+                        System.out.println("go up");
+
                     } else if (resultX > 0 && resultY < 0) {//left
                         addVelocity(-espece.getVitesse(), 0);
+                        System.out.println("go left");
+
                     } else if (resultX < 0 && resultY > 0) {//right
                         addVelocity(espece.getVitesse(), 0);
-                    } else if (resultX == 0 && resultY == 0) {//right
+                        System.out.println("go right");
+
+                    } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;
+                        System.out.println("stop");
                     }
                 }
             }

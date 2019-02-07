@@ -46,26 +46,24 @@ public class Client extends Application{
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        //Fonction obstacle
-
-        ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
-        for (int i = 0; i < 15; i++) {
-            ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
-            listObst.add(obs);
+        //Ajout obstacle ssi premier client
+        if(zoo.getListObstacle().isEmpty()){
+            ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
+            for (int i = 0; i < 15; i++) {
+                ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
+                listObst.add(obs);
+            }
+            zoo.setListObstacle(listObst);
+            System.out.println(zoo.getListObstacle());
         }
-        zoo.setListObstacle(listObst);
-        System.out.println(zoo.getListObstacle());
 
         //Ajout animal
 
-        ArrayList<AnimalImpl> listAnim = new ArrayList<AnimalImpl>();
         for (int i = 0; i < 4; i++) {
             AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
-            listAnim.add(ani);
-//            zoo.ajouterAninmal(ani);
-        }
+            zoo.ajouterAninmal(ani);
 
-        zoo.setListAnimaux(listAnim);
+        }
         System.out.println(zoo.getListAnimaux());
 
 
@@ -83,6 +81,7 @@ public class Client extends Application{
                 try {
                     for (ObstacleImpl obs : zoo.getListObstacle()){
                         obs.render(gc);
+                        //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();
@@ -92,6 +91,8 @@ public class Client extends Application{
                 try {
                     for (AnimalImpl ani : zoo.getListAnimaux()){
                         boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+
+                       // System.out.println(ani+ " " + rs);
                     }
                 } catch (RemoteException e) {
                     e.printStackTrace();

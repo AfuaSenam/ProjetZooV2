@@ -9,7 +9,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastRemoteObject implements Obstacle
-    private String urlObstacle;
+    private  String urlObstacle;
     //transient => ignorer à la serialization
     private double positionX;
     private double positionY;
@@ -92,12 +92,6 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
     {
         return new Rectangle2D(positionX, positionY, width, height);
     }//fonction permettant de savoir si il y a un obstacle à cette position
-
-    public void renderObs(GraphicsContext gc, ArrayList<ObstacleImpl> obstacle) throws RemoteException {
-        for (ObstacleImpl obs : obstacle)
-            obs.render( gc );
-
-    }
 
     public boolean intersects(ObstacleImpl s) throws RemoteException
     {

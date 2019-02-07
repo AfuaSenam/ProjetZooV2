@@ -40,8 +40,6 @@ public interface Obstacle extends Remote {
 
     public Rectangle2D getBoundary() throws RemoteException;
 
-    public void renderObs(GraphicsContext gc, ArrayList<ObstacleImpl> obstacle) throws RemoteException;
-
     public boolean intersects(ObstacleImpl s) throws RemoteException;
 
 }
