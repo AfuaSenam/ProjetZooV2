@@ -69,7 +69,7 @@ public class ZooImpl implements Zoo, Serializable {
             obs.render( gc );
     }
     @Override
-    public void ajoutObstacle(Image im) throws RemoteException {
+    public void ajoutObstacle(String im) throws RemoteException {
         ObstacleImpl obs = new ObstacleImpl(im);
         this.listObstacle.add(obs);
     }
@@ -79,7 +79,7 @@ public class ZooImpl implements Zoo, Serializable {
         ArrayList<ObstacleImpl> obst=new ArrayList<ObstacleImpl>();
         for (int i = 0; i < 15; i++) {
             ObstacleImpl obs = new ObstacleImpl();
-            obs.setImageObstacle(im);
+            obs.setUrlObstacle(im);
             obs.setPosition();
             obst.add(obs);
         }

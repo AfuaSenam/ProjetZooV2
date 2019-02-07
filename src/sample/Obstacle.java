@@ -10,11 +10,11 @@ import java.util.ArrayList;
 
 public interface Obstacle extends Remote {
 
+    public String getUrlObstacle() throws RemoteException;
+
     public Image getImageObstacle() throws RemoteException;
 
-    public void setImageObstacle(Image i) throws RemoteException;
-
-    public void setImageObstacle(String filename) throws RemoteException;
+    public void setUrlObstacle(String i) throws RemoteException;
 
     public double getPositionX() throws RemoteException;
 

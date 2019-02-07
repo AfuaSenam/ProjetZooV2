@@ -8,7 +8,6 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 //import java.net.MalformedURLException;
@@ -18,7 +17,6 @@ import java.rmi.registry.Registry;
 import java.util.ArrayList;
 
 public class Client extends Application{
-    public AnimalImpl animal1;
     public static void main(String argv[]) throws Exception {
         launch();
     }
@@ -48,21 +46,27 @@ public class Client extends Application{
 
         final GraphicsContext gc = canvas.getGraphicsContext2D();
 
-        //Ajout animal
-        animal1=new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
-
         //Fonction obstacle
-        String image = new String("asset/sapin.png");
-        Image im = new Image(image);
 
         ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
         for (int i = 0; i < 15; i++) {
-            ObstacleImpl obs = new ObstacleImpl(im);
-            obs.setImageObstacle("asset/sapin.png");
-            obs.setPosition();
+            ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
             listObst.add(obs);
         }
         zoo.setListObstacle(listObst);
+        System.out.println(zoo.getListObstacle());
+
+        //Ajout animal
+
+        ArrayList<AnimalImpl> listAnim = new ArrayList<AnimalImpl>();
+        for (int i = 0; i < 4; i++) {
+            AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
+            listAnim.add(ani);
+//            zoo.ajouterAninmal(ani);
+        }
+
+        zoo.setListAnimaux(listAnim);
+        System.out.println(zoo.getListAnimaux());
 
 
         //------------------------------Animation timer-------------------//
@@ -74,30 +78,36 @@ public class Client extends Application{
                 // calculate time since last update.
                 double elapsedTime = (currentNanoTime - startNanoTime) / 10000000000000.0;
                 // startNanoTime = currentNanoTime;
-
                 try {
-                    boolean rs=(animal1.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+                    for (ObstacleImpl obs : zoo.getListObstacle()){
+                        obs.render(gc);
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
-
                 try {
-                    animal1.update(elapsedTime);//pour le temps
+                    for (AnimalImpl ani : zoo.getListAnimaux()){
+                        boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+                    }
+                } catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+                try {
+                    for (AnimalImpl ani : zoo.getListAnimaux()){
+                        ani.update(elapsedTime);//pour le temps
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
                 gc.clearRect(0, 0, 512,512);
                 try {
-                    animal1.render( gc );
+                    for (AnimalImpl ani : zoo.getListAnimaux()){
+                        ani.render( gc );
+                    }
                 } catch (RemoteException e) {
                     e.printStackTrace();
                 }
-                try {
-                    for (ObstacleImpl obs : zoo.getListObstacle())
-                        obs.render( gc );
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+
             }
         }.start();
 

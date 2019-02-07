@@ -27,7 +27,6 @@ public class AnimalImpl implements Animal, Serializable {
         destination = new DestinationImpl(imageDestination);
         male = genre;
         setPosition();
-
     }
 
     // Constructeur
@@ -113,6 +112,11 @@ public class AnimalImpl implements Animal, Serializable {
         gc.drawImage(espece.getImageEspece(), positionX, positionY);
     }
 
+    public void renderAni(GraphicsContext gc, ArrayList<Animal> animals) throws RemoteException {
+        for (Animal ani : animals)
+            ani.render(gc);
+    }
+
     public Rectangle2D getBoundary() throws RemoteException {
         return new Rectangle2D(positionX, positionY, espece.getWidth(), espece.getHeight());
     }//fonction permettant de savoir si il y a un obstacle à cette position
@@ -137,7 +141,7 @@ public class AnimalImpl implements Animal, Serializable {
                         //pas de bébé
                     } else {
                         // new bébé()
-                        //   ZooImpl.ajouterAnimal(this.espece.getNomEspece(), this.espece.getVitesse(), this.espece.getImageEspece(), "destination.png", true);
+                        //   ZooImpl.ajouterAnimal(this.espece.getNomEspece(), this.espece.getVitesse(), this.espece.getUrlEspece(), "destination.png", true);
                         bebe = true;
                     }
                 } else {
@@ -191,12 +195,6 @@ public class AnimalImpl implements Animal, Serializable {
         }
         return rs;
     }
-
-    public void renderObs(GraphicsContext gc, ArrayList<Obstacle> obstacle) throws RemoteException {
-        for (Obstacle obs : obstacle)
-            obs.render(gc);
-    }
-
 
     @Override
     public String toString() {

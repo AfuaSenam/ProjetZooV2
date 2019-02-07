@@ -15,6 +15,6 @@ public interface Espece extends Remote {
     public ArrayList<AnimalImpl> getListAnimal();
     public void setListAnimal(ArrayList<AnimalImpl> listAnimal);
 
-    public void setImageEspece(Image i);
-    public void setImageEspece(String filename);
+    public void setUrlEspece(String i);
+    public Image getImageEspece();
 }

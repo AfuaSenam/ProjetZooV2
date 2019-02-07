@@ -6,8 +6,8 @@ import javafx.scene.image.Image;
 import java.io.Serializable;
 import java.util.ArrayList;
 
-public class EspeceImpl {
-    private Image imageEspece;
+public class EspeceImpl implements Serializable {
+    private String urlEspece;
     private double width;
     private double height;
     private String nomEspece = new String();
@@ -17,12 +17,10 @@ public class EspeceImpl {
     public EspeceImpl(String nom, double vit, String image){
         nomEspece = nom;
         vitesse = vit;
-        setImageEspece(image);
+        setUrlEspece(image);
     }
 
-    public EspeceImpl() {
-
-    }
+    public EspeceImpl() {    }
 
     public String getNomEspece() { return nomEspece; }
 
@@ -36,21 +34,21 @@ public class EspeceImpl {
         return vitesse;
     }
 
-    public void setImageEspece(Image i)
+    public void setUrlEspece(String i)
     {
-        imageEspece = i;
+        this.urlEspece = i;
+    }
+
+    public Image getImageEspece()
+    {
+        Image i = new Image(urlEspece);
         width = i.getWidth();
         height = i.getHeight();
+        return i;
     }
 
-    public void setImageEspece(String filename)
-    {
-        Image i = new Image(filename);
-        setImageEspece(i);
-    }
-
-    public Image getImageEspece(){
-        return imageEspece;
+    public String getUrlEspece(){
+        return urlEspece;
     }
 
     public void ajouterAnimal(AnimalImpl animal){

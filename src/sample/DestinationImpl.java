@@ -5,7 +5,7 @@ import javafx.scene.image.Image;
 import java.io.Serializable;
 
 public class DestinationImpl implements Destination, Serializable {
-    private Image imageDestination;
+    private String urlDestination;
     private double width;
     private double height;
     private double destinationX;
@@ -15,7 +15,7 @@ public class DestinationImpl implements Destination, Serializable {
     public DestinationImpl(){}
 
     public DestinationImpl(String imageDestination) {
-        setimageDestination(imageDestination);
+        setUrlDestination(imageDestination);
         setDestination();
     }
 
@@ -40,16 +40,16 @@ public class DestinationImpl implements Destination, Serializable {
         return destinationY;
     }
 
-    public void setimageDestination(Image i)
+    public void setUrlDestination(String i)
     {
-        imageDestination = i;
-        width = i.getWidth();
-        height = i.getHeight();
+        this.urlDestination = i;
     }
 
-    public void setimageDestination(String filename)
+    public Image getImageDestination()
     {
-        Image i = new Image(filename);
-        setimageDestination(i);
+        Image i = new Image(urlDestination);
+        width = i.getWidth();
+        height = i.getHeight();
+        return i;
     }
 }

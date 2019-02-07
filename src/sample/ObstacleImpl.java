@@ -6,11 +6,11 @@ import javafx.scene.image.Image;
 
 import java.io.Serializable;
 import java.rmi.RemoteException;
-import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 
 public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastRemoteObject implements Obstacle
-    private transient Image imageObstacle;
+    private String urlObstacle;
+    //transient => ignorer à la serialization
     private double positionX;
     private double positionY;
     private double width;
@@ -19,26 +19,26 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
     public ObstacleImpl()  {
     }
 
-    public ObstacleImpl(Image im) throws RemoteException {
-        this.setImageObstacle(im);
+    public ObstacleImpl(String im) throws RemoteException {
+        this.setUrlObstacle(im);
         this.setPosition();
     }
 
-    public Image getImageObstacle() throws RemoteException {
-        return imageObstacle;
+    public String getUrlObstacle() throws RemoteException {
+        return urlObstacle;
     }
 
-    public void setImageObstacle(Image i) throws RemoteException
+    public void setUrlObstacle(String i) throws RemoteException
     {
-        imageObstacle = i;
+        this.urlObstacle = i;
+    }
+
+    public Image getImageObstacle() throws RemoteException
+    {
+        Image i = new Image(urlObstacle);
         width = i.getWidth();
         height = i.getHeight();
-    }
-
-    public void setImageObstacle(String filename) throws RemoteException
-    {
-        Image i = new Image(filename);
-        setImageObstacle(i);
+        return i;
     }
 
     public double getPositionX() throws RemoteException {
@@ -85,7 +85,7 @@ public class ObstacleImpl  implements Serializable, Obstacle {//extends UnicastR
 
     public void render(GraphicsContext gc) throws RemoteException
     {
-        gc.drawImage( imageObstacle, positionX, positionY );
+        gc.drawImage(getImageObstacle(), positionX, positionY );
     }
 
     public Rectangle2D getBoundary() throws RemoteException

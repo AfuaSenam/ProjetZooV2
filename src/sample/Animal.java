@@ -1,6 +1,7 @@
 package sample;
 
 import javafx.geometry.Rectangle2D;
+import javafx.scene.canvas.GraphicsContext;
 
 import java.io.Serializable;
 import java.rmi.Remote;
@@ -25,6 +26,8 @@ public interface Animal extends Remote {
     public void setEspece(EspeceImpl espece) throws RemoteException;
 
     public void update(double time) throws RemoteException;
+    public void render(GraphicsContext gc) throws RemoteException;
+    public void renderAni(GraphicsContext gc, ArrayList<Animal> animals) throws RemoteException;
     public Rectangle2D getBoundary() throws RemoteException;
     public boolean intersects(AnimalImpl ani) throws RemoteException;
     public boolean rencontre(ArrayList<AnimalImpl> listAnimaux) throws RemoteException;

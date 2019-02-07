@@ -10,7 +10,7 @@ public interface Destination extends Remote {
     public void setDestination();
     public double getDestinationX();
     public double getDestinationY();
-    public void setimageDestination(Image i);
-    public void setimageDestination(String filename);
+    public void setUrlDestination(String i);
+    public Image getImageDestination();
 
 }
