@@ -29,7 +29,7 @@ public class ClientExemple extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Registry reg= LocateRegistry.getRegistry("localhost",1099);
+       /* Registry reg= LocateRegistry.getRegistry("localhost",1099);
         Zoo zoo = (Zoo) reg.lookup("zoo");
         zoo.setNomZoo("okk");
         System.out.println(zoo.getNomZoo());
@@ -106,7 +106,7 @@ public class ClientExemple extends Application{
                         }
                         //deplacement
 
-                        /*try {
+                        *//*try {
                             for (AnimalImpl ani : zoo.getListAnimaux()){
                                 boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
                                 System.out.println(ani.getPositionX()+" Y : "+ani.getPositionY()+" Destination : "+ani.getDestination().getDestinationX()+" Y: "+ani.getDestination().getDestinationY());
@@ -115,7 +115,7 @@ public class ClientExemple extends Application{
                             }
                         } catch (RemoteException e) {
                             e.printStackTrace();
-                        }*/
+                        }*//*
                         try {
                             for (AnimalImpl ani : zoo.getListAnimaux()){
                                 ani.setPositionX(232 + 128 * Math.cos(t));
@@ -156,6 +156,6 @@ public class ClientExemple extends Application{
 
         gameLoop.getKeyFrames().add( kf );
         gameLoop.play();
-        primaryStage.show();
+        primaryStage.show();*/
     }
 }
