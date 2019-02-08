@@ -63,16 +63,8 @@ public class Client extends Application {
 
             //Ajout animal sur position !obstacle
             for (int i = 0; i < 4; i++) {
-                AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
-
-                if(ani.verifIntersectObst(zoo.getListObstacle()) && ani.verifIntersectAni(zoo.getListAnimaux())){
-                    zoo.ajouterAninmal(ani);
-                    System.out.println(i +"X = " + ani.getPositionX());
-                    System.out.println(i +"Y = " + ani.getPositionY());
-
-                }
-
-
+               // AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
+                zoo.ajouterAnimal("Chien", 50, "asset/chien.png", "asset/mine.png", true);
             }
             System.out.println(zoo.getListAnimaux());
 
@@ -91,49 +83,31 @@ public class Client extends Application {
                         gc.clearRect(0, 0, 512,512);
                         gc.drawImage(image,0,0,512,512);
 
-                        // Deplacement animal
-                        int i=0;
+
+                        System.out.println("-----------------------------------");
+
+                        zoo.deplacementListAnimaux(elapsedTime);
                         for (AnimalImpl ani : zoo.getListAnimaux()) {
 
-                            if (i == 1) {
-                                System.out.println("D Velo X = " + ani.getVelocityX());
-                                System.out.println("D Velo Y = " + ani.getVelocityY());
-                            }
+                            /*System.out.println("debut X = " + ani.getPositionX());
+                            System.out.println("debut Y = " + ani.getPositionY());
 
-                            boolean rs = (ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+                            zoo.setDeplacementAnimal(ani);
 
-                            if (i == 1) {
-                                System.out.println("D new Velo X = " + ani.getVelocityX());
-                                System.out.println("D new Velo Y = " + ani.getVelocityY());
-                                System.out.println("D posi X = " + ani.getPositionX());
-                                System.out.println("D posi Y = " + ani.getPositionY());
-                                ani.update(elapsedTime);
-                            }
+                            System.out.println("D X = " + ani.getPositionX());
+                            System.out.println("D Y = " + ani.getPositionY());
 
+                            zoo.setUpdateAnimal(ani, elapsedTime);
 
-                            //ani.update(elapsedTime);//pour le temps
+                            System.out.println("U X = " + ani.getPositionX());
+                            System.out.println("U Y = " + ani.getPositionY());*/
 
-                            if (i == 1) {
-                                System.out.println("U new Velo X = " + ani.getVelocityX());
-                                System.out.println("U new Velo Y = " + ani.getVelocityY());
-                                System.out.println("U posi X = " + ani.getPositionX());
-                                System.out.println("U posi Y = " + ani.getPositionY());
-                            }
+                            Image im = new Image(zoo.getUrlAnimal(ani));
+                            gc.drawImage(im, zoo.getPositionXAnimal(ani), zoo.getPositionYAnimal(ani));
 
-                            // Display Animal
+                            System.out.println("R X = " + ani.getPositionX());
+                            System.out.println("R Y = " + ani.getPositionY());
 
-                            if (i == 1) {
-                                System.out.println("R Velo X = " + ani.getVelocityX());
-                                System.out.println("R Velo Y = " + ani.getVelocityY());
-                            }
-                            ani.render(gc);
-                            if (i == 1) {
-                                System.out.println("R X = " + ani.getPositionX());
-                                System.out.println("R Y = " + ani.getPositionY());
-                                System.out.println("R Velo X = " + ani.getVelocityX());
-                                System.out.println("R Velo Y = " + ani.getVelocityY());
-                            }
-                            i++;
                         }
 
                         // Display obstacle

@@ -27,10 +27,11 @@ public interface Animal extends Remote {
 
     public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException;
     public boolean verifIntersectAni(ArrayList<AnimalImpl> listeAni) throws RemoteException;
+    public String getUrlEspece();
     public void update(double time) throws RemoteException;
     public void render(GraphicsContext gc) throws RemoteException;
-    public void renderAni(GraphicsContext gc, ArrayList<Animal> animals) throws RemoteException;
     public Rectangle2D getBoundary() throws RemoteException;
+    public boolean intersects(ObstacleImpl s) throws RemoteException;
     public boolean intersects(AnimalImpl ani) throws RemoteException;
     public boolean rencontre(ArrayList<AnimalImpl> listAnimaux) throws RemoteException;
     public boolean deplacement(ArrayList<ObstacleImpl> listObstacle, ArrayList<AnimalImpl> listAnimaux) throws RemoteException;

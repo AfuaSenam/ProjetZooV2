@@ -42,10 +42,12 @@ public class AnimalImpl implements Animal, Serializable {
     public AnimalImpl(){}
 
     //getters & setters
+    @Override
     public void setPosition(double x, double y) throws RemoteException {
         positionX = x;
         positionY = y;
     }
+
 
     public double getVelocityX() {
         return velocityX;
@@ -60,12 +62,13 @@ public class AnimalImpl implements Animal, Serializable {
         positionY =  Math.random()*(512-50);
     }
 
-
+    @Override
     public void setVelocity(double x, double y) throws RemoteException {
         velocityX = x;
         velocityY = y;
     }
 
+    @Override
     public void addVelocity(double x, double y) throws RemoteException {
         this.velocityX += x;
         this.velocityY += y;
@@ -103,6 +106,11 @@ public class AnimalImpl implements Animal, Serializable {
         this.male = male;
     }
 
+    public void setMale() throws RemoteException {
+        //this.male = male;
+        // set random
+    }
+
     public EspeceImpl getEspece() throws RemoteException {
         return espece;
     }
@@ -111,31 +119,42 @@ public class AnimalImpl implements Animal, Serializable {
         this.espece = espece;
     }
 
+    public String getUrlEspece(){
+        return espece.getUrlEspece();
+    }
+
+    @Override
     public void update(double time) throws RemoteException {
 
-        System.out.println("PX "+this.positionX+this.velocityX * time);
-        this.positionX = this.positionX+this.velocityX * time;
-        System.out.println("PosX "+this.getPositionX());
+        System.out.println("in U Velo X "+this.velocityX);
+       // time = time*1000000;
+        System.out.println("time "+ time);
+        System.out.println("in U X "+this.getPositionX());
 
-        System.out.println("PY "+this.positionY+this.velocityY * time);
-        this.positionY = this.positionY+this.velocityY * time;
-        System.out.println("PosY "+this.getPositionY());
+      //  System.out.println("velo * temps "+(this.velocityX ));
+        setPositionX((getPositionX()+this.velocityX*time));
+        System.out.println("out U X "+this.getPositionX());
+
+
+        System.out.println("in U Velo Y "+this.velocityY);
+        System.out.println("in U Y "+this.getPositionY());
+
+        setPositionY((getPositionY()+this.velocityY *time));
+        System.out.println("out U Y "+this.getPositionY());
 
     }
 
+    @Override
     public void render(GraphicsContext gc) throws RemoteException {
         gc.drawImage(espece.getImageEspece(), positionX, positionY);
     }
 
-    public void renderAni(GraphicsContext gc, ArrayList<Animal> animals) throws RemoteException {
-        for (Animal ani : animals)
-            ani.render(gc);
-    }
-
+    @Override
     public Rectangle2D getBoundary() throws RemoteException {
         return new Rectangle2D(positionX, positionY, espece.getWidth(), espece.getHeight());
     }//fonction permettant de savoir si il y a un obstacle à cette position
 
+    @Override
     public boolean verifIntersectObst(ArrayList<ObstacleImpl> listeObst) throws RemoteException{
         boolean t = true;
         for (ObstacleImpl obs:listeObst){
@@ -144,6 +163,8 @@ public class AnimalImpl implements Animal, Serializable {
         }
         return t;
     }
+
+    @Override
     public boolean verifIntersectAni(ArrayList<AnimalImpl> listeAni) throws RemoteException{
         boolean t=true;
         for (AnimalImpl obs:listeAni){
@@ -153,14 +174,17 @@ public class AnimalImpl implements Animal, Serializable {
         return t;
     }
 
+    @Override
     public boolean intersects(ObstacleImpl s) throws RemoteException {
         return s.getBoundary().intersects(this.getBoundary());
     }
 
+    @Override
     public boolean intersects(AnimalImpl ani) throws RemoteException {
         return ani.getBoundary().intersects(this.getBoundary());
     }
 
+    @Override
     public boolean rencontre(ArrayList<AnimalImpl> listAnimaux) throws RemoteException {
         Iterator<AnimalImpl> animalIter = listAnimaux.iterator();
         boolean bebe = false;
@@ -173,7 +197,6 @@ public class AnimalImpl implements Animal, Serializable {
                         //pas de bébé
                     } else {
                         // new bébé()
-                        //   ZooImpl.ajouterAnimal(this.espece.getNomEspece(), this.espece.getVitesse(), this.espece.getUrlEspece(), "destination.png", true);
                         bebe = true;
                     }
                 } else {
@@ -186,12 +209,12 @@ public class AnimalImpl implements Animal, Serializable {
 
     }
 
+    @Override
     public boolean deplacement(ArrayList<ObstacleImpl> listObstacle, ArrayList<AnimalImpl> listAnimaux) throws RemoteException {
         //gestion d'obstacle
         boolean rs = false;
         double resultX;
         double resultY;
-
 
         //for (ObstacleImpl)
 
@@ -214,26 +237,26 @@ public class AnimalImpl implements Animal, Serializable {
                 } else {
                     // inferieur X / ligne Y
 
-                  //  System.out.println("vitesse = " + espece.getVitesse());
+                    System.out.println("vitesse = " + espece.getVitesse());
                     if (resultX < 0 && resultY < 0) {
                         this.addVelocity(0, this.espece.getVitesse());//down
-                       // System.out.println("go down");
+                        System.out.println("go down");
 
                     } else if (resultX > 0 && resultY > 0) {
                         this.addVelocity(0, -this.espece.getVitesse());//up
-                       // System.out.println("go up");
+                        System.out.println("go up");
 
                     } else if (resultX > 0 && resultY < 0) {//left
                         this.addVelocity(-this.espece.getVitesse(), 0);
-                       // System.out.println("go left");
+                        System.out.println("go left");
 
                     } else if (resultX < 0 && resultY > 0) {//right
                         this.addVelocity(this.espece.getVitesse(), 0);
-                       // System.out.println("go right");
+                        System.out.println("go right");
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;
-                       // System.out.println("stop");
+                        System.out.println("stop");
                     }
                 }
             }
