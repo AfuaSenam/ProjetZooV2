@@ -36,9 +36,16 @@ public class ZooImpl implements Zoo, Serializable {
 
     @Override
     public ArrayList<AnimalImpl> getListAnimaux() throws RemoteException {
-        /*for (AnimalImpl ani : listAnimaux) {
-            ani.setPositionY(ani.getPositionY()+10);
-        }*/
+        return listAnimaux;
+    }
+
+    @Override
+    public ArrayList<AnimalImpl> getListAnimaux(double time) throws RemoteException {
+        for (AnimalImpl ani : listAnimaux) {
+            setDeplacementAnimal(ani);
+            setUpdateAnimal(ani, time);
+
+        }
         return listAnimaux;
     }
 
