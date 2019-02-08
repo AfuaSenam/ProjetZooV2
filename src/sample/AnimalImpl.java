@@ -127,7 +127,7 @@ public class AnimalImpl implements Animal, Serializable {
     public void update(double time) throws RemoteException {
 
         System.out.println("in U Velo X "+this.velocityX);
-       // time = time*1000000;
+        time = time*100;
         System.out.println("time "+ time);
         System.out.println("in U X "+this.getPositionX());
 
@@ -240,19 +240,23 @@ public class AnimalImpl implements Animal, Serializable {
                     System.out.println("vitesse = " + espece.getVitesse());
                     if (resultX < 0 && resultY < 0) {
                         this.addVelocity(0, this.espece.getVitesse());//down
-                        System.out.println("go down");
+                        //System.out.println("go down");
+                        System.out.println("set velocity: "+this.getVelocityX());
 
                     } else if (resultX > 0 && resultY > 0) {
                         this.addVelocity(0, -this.espece.getVitesse());//up
-                        System.out.println("go up");
+                        //System.out.println("go up");
+                        System.out.println("set velocity: "+this.getVelocityX());
 
                     } else if (resultX > 0 && resultY < 0) {//left
                         this.addVelocity(-this.espece.getVitesse(), 0);
-                        System.out.println("go left");
+                        //System.out.println("go left");
+                        System.out.println("set velocity: "+this.getVelocityX());
 
                     } else if (resultX < 0 && resultY > 0) {//right
                         this.addVelocity(this.espece.getVitesse(), 0);
-                        System.out.println("go right");
+                        //System.out.println("go right");
+                        System.out.println("set velocity: "+this.getVelocityX());
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;

@@ -85,7 +85,7 @@ public class Client extends Application {
 
 
                         System.out.println("-----------------------------------");
-
+                        int i=0;
                         zoo.deplacementListAnimaux(elapsedTime);
                         for (AnimalImpl ani : zoo.getListAnimaux()) {
 
@@ -105,8 +105,11 @@ public class Client extends Application {
                             Image im = new Image(zoo.getUrlAnimal(ani));
                             gc.drawImage(im, zoo.getPositionXAnimal(ani), zoo.getPositionYAnimal(ani));
 
-                            System.out.println("R X = " + ani.getPositionX());
-                            System.out.println("R Y = " + ani.getPositionY());
+                            if(i==1){
+                                System.out.println("1 X = " + ani.getPositionX());
+                                System.out.println("1 Y = " + ani.getPositionY());
+                            }i++;
+
 
                         }
 

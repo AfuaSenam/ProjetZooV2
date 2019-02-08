@@ -126,18 +126,22 @@ public class ZooImpl implements Zoo, Serializable {
                     if (resultX < 0 && resultY < 0) {
                         ani.addVelocity(0, ani.getEspece().getVitesse());//down
                         System.out.println("go down");
+                        System.out.println("get velocity: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
 
                     } else if (resultX > 0 && resultY > 0) {
                         ani.addVelocity(0, -ani.getEspece().getVitesse());//up
                         System.out.println("go up");
+                        System.out.println("get velocity: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
 
                     } else if (resultX > 0 && resultY < 0) {//left
                         ani.addVelocity(-ani.getEspece().getVitesse(), 0);
                         System.out.println("go left");
+                        System.out.println("get velocity: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
 
                     } else if (resultX < 0 && resultY > 0) {//right
                         ani.addVelocity(ani.getEspece().getVitesse(), 0);
                         System.out.println("go right");
+                        System.out.println("get velocity: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte
                         rs = true;
@@ -155,10 +159,11 @@ public class ZooImpl implements Zoo, Serializable {
         //ani.update(time);
         System.out.println("in U X = " + ani.getPositionX());
         System.out.println("in U Y = " + ani.getPositionY());
-
-        time = time*1000000;
-        ani.setPositionX((ani.getPositionX()+ani.getVelocityX()*time));
-        ani.setPositionY((ani.getPositionY()+ani.getVelocityY()*time));
+        System.out.println("set velocity: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
+        //time = time*1000000;
+        ani.setPositionX((ani.getPositionX()+ani.getVelocityX()));
+        System.out.println("velo*time: "+ani.getVelocityX()+" Y "+ani.getVelocityY());
+        ani.setPositionY((ani.getPositionY()+ani.getVelocityY()));
 
         System.out.println("out U X = " + ani.getPositionX());
         System.out.println("out U Y = " + ani.getPositionY());
@@ -181,20 +186,30 @@ public class ZooImpl implements Zoo, Serializable {
 
     @Override
     public void deplacementListAnimaux(double time) throws RemoteException{
+        int i=0;
         for (AnimalImpl ani : listAnimaux) {
 
             System.out.println("debut X = " + ani.getPositionX());
             System.out.println("debut Y = " + ani.getPositionY());
 
             setDeplacementAnimal(ani);
-
+            System.out.println("get velocity2: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
             System.out.println("D X = " + ani.getPositionX());
             System.out.println("D Y = " + ani.getPositionY());
-
+            //ani.setPositionX(50);
+            System.out.println("get velocity3: "+ani.getVelocityX()+"Y "+ani.getVelocityY());
             setUpdateAnimal(ani, time);
 
             System.out.println("U X = " + ani.getPositionX());
             System.out.println("U Y = " + ani.getPositionY());
+
+
+            if(i==1){
+                System.out.println("1 X = " + ani.getPositionX());
+                System.out.println("1 Y = " + ani.getPositionY());
+            }
+            i++;
+
         }
     }
 }
