@@ -27,7 +27,6 @@ public class AnimalImpl implements Animal, Serializable {
         destination = new DestinationImpl(imageDestination);
         male = genre;
         setPosition();
-        setVelocity(0, 0);
     }
 
     // Constructeur
@@ -113,8 +112,14 @@ public class AnimalImpl implements Animal, Serializable {
     }
 
     public void update(double time) throws RemoteException {
-        this.positionX += this.velocityX * time;
-        this.positionY += this.velocityY * time;
+
+        System.out.println("PX "+this.positionX+this.velocityX * time);
+        this.positionX = this.positionX+this.velocityX * time;
+        System.out.println("PosX "+this.getPositionX());
+
+        System.out.println("PY "+this.positionY+this.velocityY * time);
+        this.positionY = this.positionY+this.velocityY * time;
+        System.out.println("PosY "+this.getPositionY());
 
     }
 
@@ -211,19 +216,19 @@ public class AnimalImpl implements Animal, Serializable {
 
                   //  System.out.println("vitesse = " + espece.getVitesse());
                     if (resultX < 0 && resultY < 0) {
-                        this.addVelocity(1, this.espece.getVitesse());//down
+                        this.addVelocity(0, this.espece.getVitesse());//down
                        // System.out.println("go down");
 
                     } else if (resultX > 0 && resultY > 0) {
-                        this.addVelocity(1, -this.espece.getVitesse());//up
+                        this.addVelocity(0, -this.espece.getVitesse());//up
                        // System.out.println("go up");
 
                     } else if (resultX > 0 && resultY < 0) {//left
-                        this.addVelocity(-this.espece.getVitesse(), 1);
+                        this.addVelocity(-this.espece.getVitesse(), 0);
                        // System.out.println("go left");
 
                     } else if (resultX < 0 && resultY > 0) {//right
-                        this.addVelocity(this.espece.getVitesse(), 1);
+                        this.addVelocity(this.espece.getVitesse(), 0);
                        // System.out.println("go right");
 
                     } else if (resultX == 0 && resultY == 0) {//destination atteinte

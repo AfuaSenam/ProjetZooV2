@@ -88,70 +88,57 @@ public class Client extends Application {
                     // startNanoTime = currentNanoTime;
 
                     try {
-
-                        // Deplacement animal
-                        int i=0;
-                        for (AnimalImpl ani : zoo.getListAnimaux()){
-                            if(i==1){
-                                System.out.println("Velo X = " + ani.getVelocityX());
-                                System.out.println("Velo Y = " + ani.getVelocityY());
-
-                            }
-                            boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
-                           // System.out.println(ani+ " " + rs);
-                            if(i==1){
-                                System.out.println("new Velo X = " +  ani.getVelocityX());
-                                System.out.println("new Velo Y = " +  ani.getVelocityY());
-                            }
-                            i++;
-                        }
-
-                    // Recalcul position Animal
-                        i=0;
-                        for (AnimalImpl ani : zoo.getListAnimaux()){
-                            if(i==1){
-                                System.out.println("U Velo X = " + ani.getVelocityX());
-                                System.out.println("U Velo Y = " + ani.getVelocityY());
-
-                            }
-                            ani.update(elapsedTime);//pour le temps
-                            // System.out.println(ani+ " " + rs);
-                            if(i==1){
-                                System.out.println("U new Velo X = " +  ani.getVelocityX());
-                                System.out.println("U new Velo Y = " +  ani.getVelocityY());
-                            }
-                            i++;
-                        }
-
                         gc.clearRect(0, 0, 512,512);
                         gc.drawImage(image,0,0,512,512);
 
-                        // Display Animal
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
+                        // Deplacement animal
+                        int i=0;
+                        for (AnimalImpl ani : zoo.getListAnimaux()) {
 
-                                ani.render( gc );
-                                if(i==1){
-                                    System.out.println("1: X = " + ani.getPositionX());
-                                    System.out.println("1: Y = " + ani.getPositionY());
-                                    System.out.println("1: Velo X = " + ani.getVelocityX());
-                                    System.out.println("1: Velo Y = " + ani.getVelocityY());
-                                }
-
-
-                                i++;
+                            if (i == 1) {
+                                System.out.println("D Velo X = " + ani.getVelocityX());
+                                System.out.println("D Velo Y = " + ani.getVelocityY());
                             }
+
+                            boolean rs = (ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
+
+                            if (i == 1) {
+                                System.out.println("D new Velo X = " + ani.getVelocityX());
+                                System.out.println("D new Velo Y = " + ani.getVelocityY());
+                                System.out.println("D posi X = " + ani.getPositionX());
+                                System.out.println("D posi Y = " + ani.getPositionY());
+                                ani.update(elapsedTime);
+                            }
+
+
+                            //ani.update(elapsedTime);//pour le temps
+
+                            if (i == 1) {
+                                System.out.println("U new Velo X = " + ani.getVelocityX());
+                                System.out.println("U new Velo Y = " + ani.getVelocityY());
+                                System.out.println("U posi X = " + ani.getPositionX());
+                                System.out.println("U posi Y = " + ani.getPositionY());
+                            }
+
+                            // Display Animal
+
+                            if (i == 1) {
+                                System.out.println("R Velo X = " + ani.getVelocityX());
+                                System.out.println("R Velo Y = " + ani.getVelocityY());
+                            }
+                            ani.render(gc);
+                            if (i == 1) {
+                                System.out.println("R X = " + ani.getPositionX());
+                                System.out.println("R Y = " + ani.getPositionY());
+                                System.out.println("R Velo X = " + ani.getVelocityX());
+                                System.out.println("R Velo Y = " + ani.getVelocityY());
+                            }
+                            i++;
+                        }
 
                         // Display obstacle
-                            for (ObstacleImpl obs : zoo.getListObstacle()){
-                                gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
-                                //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
-                            }
-
-                    // Display obstacle
-
                         for (ObstacleImpl obs : zoo.getListObstacle()){
-                            gc.drawImage(obs.getImageObstacle(), obs.getPositionY(), obs.getPositionY());
-                            //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
+                            gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
                         }
 
                     } catch (RemoteException e) {
