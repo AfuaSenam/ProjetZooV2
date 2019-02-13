@@ -56,25 +56,20 @@ public class ClientExemple extends Application{
         Image image=new Image("asset/fond.png");
 
         //Ajout obstacle ssi premier client
+
         if(zoo.getListObstacle().isEmpty()){
-            ArrayList<ObstacleImpl> listObst=new ArrayList<ObstacleImpl>();
-            for (int i = 0; i < 15; i++) {
-                ObstacleImpl obs = new ObstacleImpl("asset/sapin.png");
-                listObst.add(obs);
-            }
-            zoo.setListObstacle(listObst);
+
+            zoo.ajoutListeObs("asset/sapin.png", 2);
+            zoo.ajoutListeObs("asset/palmier.png", 2);
+            zoo.ajoutListeObs("asset/herbe.png", 7);
+
             System.out.println(zoo.getListObstacle());
         }
 
-        //Ajout animal
-
-        for (int i = 0; i < 3; i++) {
-            AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chat.png","asset/mine.png",false);
-
-                if(ani.verifIntersectAni(zoo.getListAnimaux()) && ani.verifIntersectObst(zoo.getListObstacle())){
-
-                    zoo.ajouterAninmal(ani);
-            }
+        //Ajout animal sur position !obstacle
+        for (int i = 0; i < 4; i++) {
+            // AnimalImpl ani = new AnimalImpl("Chien",50,"asset/chien.png","asset/mine.png",false);
+            zoo.ajouterAnimal("Chien", 50, "asset/chien.png", "asset/mine.png", true);
         }
         System.out.println(zoo.getListAnimaux());
 
@@ -87,75 +82,63 @@ public class ClientExemple extends Application{
         final long timeStart = System.currentTimeMillis();
 
         KeyFrame kf = new KeyFrame(
-                Duration.seconds(0.017),                // 0,017(60 FPS)
+                Duration.seconds(1),                // 0,017(60 FPS)
                 new EventHandler<ActionEvent>()
                 {
-                    public void handle(ActionEvent ae)
-                    {
-                        double t = (System.currentTimeMillis() - timeStart) / 1000.0;
+                    public void handle(ActionEvent ae) {
+                        double t = (System.currentTimeMillis() - timeStart) / 10000.0;
 
                         //double x = 232 + 128 * Math.cos(t);
                         //double y = 232 + 128 * Math.sin(t);
-                        try {
-
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
-                                ani.update(t);//pour le temps
-                            }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                        //deplacement
-
-                        *//*try {
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
-                                boolean rs=(ani.deplacement(zoo.getListObstacle(), zoo.getListAnimaux()));
-                                System.out.println(ani.getPositionX()+" Y : "+ani.getPositionY()+" Destination : "+ani.getDestination().getDestinationX()+" Y: "+ani.getDestination().getDestinationY());
-
-                                // System.out.println(ani+ " " + rs);
-                            }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }*//*
-                        try {
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
-                                ani.setPositionX(232 + 128 * Math.cos(t));
-                                ani.setPositionY(232 + 128 * Math.sin(t));
-                                
-                            }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println();
-
-                        // Clear the canvas
-                        gc.clearRect(0, 0, 512,512);
-
-                        //background image canvas
-                        gc.drawImage(image,0,0,512,512);
-
-                        // background image clears canvas
-                        try {
-                            for (AnimalImpl ani : zoo.getListAnimaux()){
-                                gc.drawImage(ani.getEspece().getImageEspece(), ani.getPositionY(), ani.getPositionY());
-                            }
-                        } catch (RemoteException e) {
-                            e.printStackTrace();
-                        }
 
                         try {
+                            gc.clearRect(0, 0, 512,512);
+                            gc.drawImage(image,0,0,512,512);
+
+
+                            System.out.println("-----------------------------------");
+                            int i=0;
+                            zoo.deplacementListAnimaux(t);
+                            for (AnimalImpl ani : zoo.getListAnimaux()) {
+
+                            //*System.out.println("debut X = " + ani.getPositionX());
+                                System.out.println("debut Y = " + ani.getPositionY());
+
+                                zoo.setDeplacementAnimal(ani);
+
+                                System.out.println("D X = " + ani.getPositionX());
+                                System.out.println("D Y = " + ani.getPositionY());
+
+                                zoo.setUpdateAnimal(ani, t);
+
+                                System.out.println("U X = " + ani.getPositionX());
+                                System.out.println("U Y = " + ani.getPositionY());
+
+                                Image im = new Image(zoo.getUrlAnimal(ani));
+                                gc.drawImage(im, zoo.getPositionXAnimal(ani), zoo.getPositionYAnimal(ani));
+
+                                if(i==1){
+                                    System.out.println("1 X = " + ani.getPositionX());
+                                    System.out.println("1 Y = " + ani.getPositionY());
+                                }i++;
+
+
+                            }
+
+                            // Display obstacle
                             for (ObstacleImpl obs : zoo.getListObstacle()){
-                                gc.drawImage(obs.getImageObstacle(), obs.getPositionY(), obs.getPositionY());
-                                //gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
+                                gc.drawImage(obs.getImageObstacle(), obs.getPositionX(), obs.getPositionY());
                             }
 
                         } catch (RemoteException e) {
                             e.printStackTrace();
                         }
+
                     }
                 });
 
         gameLoop.getKeyFrames().add( kf );
         gameLoop.play();
-        primaryStage.show();*/
-    }
-}
+        primaryStage.show();
+    }*/
+}}
